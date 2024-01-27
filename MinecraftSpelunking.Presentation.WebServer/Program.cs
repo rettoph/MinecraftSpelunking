@@ -1,4 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using MinecraftSpelunking.Domain.Database;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Add database
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(connectionString, x => x.MigrationsAssembly("MinecraftSpelunking.Domain.Database")));
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
