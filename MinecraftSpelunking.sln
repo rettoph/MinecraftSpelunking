@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Presentation.WebServer", "MinecraftSpelunking.Presentation.WebServer\MinecraftSpelunking.Presentation.WebServer.csproj", "{B6E6D6C3-7FEB-4C98-B96A-6B80032CFA4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Domain.Database", "MinecraftSpelunking.Domain.Database\MinecraftSpelunking.Domain.Database.csproj", "{F6B289D2-4B0F-499E-8056-CC1671BCB6E0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6E6D6C3-7FEB-4C98-B96A-6B80032CFA4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6E6D6C3-7FEB-4C98-B96A-6B80032CFA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6E6D6C3-7FEB-4C98-B96A-6B80032CFA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6E6D6C3-7FEB-4C98-B96A-6B80032CFA4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6B289D2-4B0F-499E-8056-CC1671BCB6E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6B289D2-4B0F-499E-8056-CC1671BCB6E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6B289D2-4B0F-499E-8056-CC1671BCB6E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6B289D2-4B0F-499E-8056-CC1671BCB6E0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CEBCF35A-887C-46E6-8896-9EE090069DE8}
+	EndGlobalSection
+EndGlobal
