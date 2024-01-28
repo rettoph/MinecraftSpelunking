@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MinecraftSpelunking.Presentation.WebServer.Models;
 using System.Diagnostics;
@@ -13,12 +14,8 @@ namespace MinecraftSpelunking.Presentation.WebServer.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
             return View();
         }

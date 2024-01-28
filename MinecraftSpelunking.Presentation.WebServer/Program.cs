@@ -1,16 +1,17 @@
-using Microsoft.EntityFrameworkCore;
-using MinecraftSpelunking.Domain.Database;
+using MinecraftSpelunking.Application.Extensions.Microsoft.DependencyInjection;
+using MinecraftSpelunking.Domain.Extensions.Microsoft.DependencyInjection;
+using MinecraftSpelunking.Presentation.WebServer.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add database
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(connectionString, x => x.MigrationsAssembly("MinecraftSpelunking.Domain.Database")));
+builder.Services
+    .RegisterDomainServices(builder.Configuration)
+    .RegisterApplicationServices();
 
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddRazorRuntimeCompilation();
 
 var app = builder.Build();
 
@@ -28,6 +29,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseMiddleware<AccessTokenMiddleware>();
 
 app.MapControllerRoute(
     name: "default",
