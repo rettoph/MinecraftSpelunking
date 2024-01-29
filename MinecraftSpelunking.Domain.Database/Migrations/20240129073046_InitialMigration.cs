@@ -279,11 +279,6 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ApiAccessToken", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "12345", "2b18af2f-4cb1-41f1-804c-355962e95224", "admin@retto.ph", true, false, null, "admin@retto.ph", "admin", "AQAAAAIAAYagAAAAELrJ9SHeZcd4EoK5e2oelF+so3cb+tqrlFOh9HrHQCOVLhlgHjJZNDMGq+v2BFDXew==", null, false, "", false, "admin" });
-
-            migrationBuilder.InsertData(
                 table: "ReservedAddressBlocks",
                 columns: new[] { "Id", "Network" },
                 values: new object[,]
@@ -304,15 +299,6 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                     { 14, "224.0.0.0/4" },
                     { 15, "240.0.0.0/4" },
                     { 16, "255.255.255.255/32" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[,]
-                {
-                    { 1, 1 },
-                    { 2, 1 }
                 });
 
             migrationBuilder.CreateIndex(

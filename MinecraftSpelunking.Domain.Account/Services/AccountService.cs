@@ -11,13 +11,13 @@ namespace MinecraftSpelunking.Domain.Account.Services
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
-        private readonly DataContext _dataContext;
+        private readonly DataContext _context;
 
         public AccountService(SignInManager<User> signInManager, UserManager<User> userManager, DataContext dataContext)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _dataContext = dataContext;
+            _context = dataContext;
         }
 
         public Task<User?> TryGetUserByEmailAsync(string email)
@@ -27,7 +27,7 @@ namespace MinecraftSpelunking.Domain.Account.Services
 
         public User TryGetUserById(int userId)
         {
-            return _dataContext.Users.First(x => x.Id == userId);
+            return _context.Users.First(x => x.Id == userId);
         }
 
         public async Task<SignInAttemptResultEnum> TrySignInWithEmailAndPasswordAsync(string email, string password)
@@ -50,13 +50,13 @@ namespace MinecraftSpelunking.Domain.Account.Services
 
         public async Task<User?> TrySignInWithApiAccessToken(string apiAccessToken, params UserRoleTypeEnum[] roles)
         {
-            User? user = _dataContext.Users.FirstOrDefault(x => x.ApiAccessToken == apiAccessToken);
+            User? user = _context.Users.FirstOrDefault(x => x.ApiAccessToken == apiAccessToken);
             if (user is null)
             {
                 return user;
             }
 
-            List<IdentityUserRole<int>> userRoles = _dataContext.UserRoles.Where(x => x.UserId == user.Id).ToList();
+            List<IdentityUserRole<int>> userRoles = _context.UserRoles.Where(x => x.UserId == user.Id).ToList();
 
             foreach (UserRoleTypeEnum role in roles)
             {
@@ -78,6 +78,43 @@ namespace MinecraftSpelunking.Domain.Account.Services
         public async Task SignOutAsync()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public bool AtLeastOneUserExists()
+        {
+            return _context.Users.Any();
+        }
+
+        public User Create(string email, string password, params UserRoleTypeEnum[] roles)
+        {
+            var hasher = new PasswordHasher<User>();
+            User user = new User()
+            {
+                UserName = email,
+                NormalizedUserName = email,
+                Email = email,
+                NormalizedEmail = email,
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, password),
+                ApiAccessToken = $"{Guid.NewGuid()}-{Guid.NewGuid()}",
+                SecurityStamp = string.Empty
+            };
+
+            _context.Users.Add(user);
+            _context.SaveChanges();
+
+            foreach (UserRoleTypeEnum role in roles)
+            {
+                _context.UserRoles.Add(new IdentityUserRole<int>()
+                {
+                    UserId = user.Id,
+                    RoleId = (int)role
+                });
+            }
+
+            _context.SaveChanges();
+
+            return user;
         }
     }
 }

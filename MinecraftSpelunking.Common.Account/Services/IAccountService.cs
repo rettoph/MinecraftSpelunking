@@ -11,5 +11,9 @@ namespace MinecraftSpelunking.Common.Account.Services
         Task SignOutAsync();
         Task<SignInAttemptResultEnum> TrySignInWithEmailAndPasswordAsync(string email, string password);
         Task<User?> TrySignInWithApiAccessToken(string apiAccessToken, params UserRoleTypeEnum[] roles);
+
+        bool AtLeastOneUserExists();
+
+        User Create(string email, string password, params UserRoleTypeEnum[] roles);
     }
 }

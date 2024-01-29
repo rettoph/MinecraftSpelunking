@@ -104,18 +104,6 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            RoleId = 2
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
@@ -209,25 +197,6 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AccessFailedCount = 0,
-                            ApiAccessToken = "12345",
-                            ConcurrencyStamp = "2b18af2f-4cb1-41f1-804c-355962e95224",
-                            Email = "admin@retto.ph",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "admin@retto.ph",
-                            NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAELrJ9SHeZcd4EoK5e2oelF+so3cb+tqrlFOh9HrHQCOVLhlgHjJZNDMGq+v2BFDXew==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("MinecraftSpelunking.Common.Account.Entities.UserRole", b =>

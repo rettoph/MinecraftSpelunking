@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MinecraftSpelunking.Application.Account.Models;
 using MinecraftSpelunking.Application.Account.Services;
 using MinecraftSpelunking.Common.Account;
@@ -18,7 +19,12 @@ namespace MinecraftSpelunking.Presentation.WebServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Login()
         {
-            var test = await _accounts.TrySignOutAsync();
+            if (_accounts.AtLeastOneUserExists() == false)
+            {
+                return RedirectToAction(nameof(CreateAdminAccount), "Account");
+            }
+
+            await _accounts.TrySignOutAsync();
 
             return View();
         }
@@ -42,6 +48,7 @@ namespace MinecraftSpelunking.Presentation.WebServer.Controllers
             });
         }
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await _accounts.TrySignOutAsync();
@@ -50,5 +57,28 @@ namespace MinecraftSpelunking.Presentation.WebServer.Controllers
             return LocalRedirect(returnUrl);
         }
 
+        [HttpGet]
+        public Task<IActionResult> CreateAdminAccount()
+        {
+            return Task.FromResult<IActionResult>(View());
+        }
+
+        [HttpPost]
+        public Task<IActionResult> CreateAdminAccount(CreateAdminAccountRequestModel request)
+        {
+            if (request.Password != request.RePassword)
+            {
+                return Task.FromResult<IActionResult>(View(new CreateAdminAccounResponseModel()
+                {
+                    Email = request.Email,
+                    Message = "Passwords to not match"
+                }));
+            }
+
+            _accounts.Create(request.Email, request.Password, UserRoleTypeEnum.User, UserRoleTypeEnum.Admin);
+
+            string returnUrl = Url.Content("~/");
+            return Task.FromResult<IActionResult>(LocalRedirect(returnUrl));
+        }
     }
 }

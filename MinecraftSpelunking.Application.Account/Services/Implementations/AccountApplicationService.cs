@@ -25,11 +25,6 @@ namespace MinecraftSpelunking.Application.Account.Services.Implementations
 
         public async Task<bool> TrySignOutAsync()
         {
-            if (this.TryGetCurrentUser() is null)
-            {
-                return false;
-            }
-
             await _accounts.SignOutAsync();
 
             return true;
@@ -68,6 +63,16 @@ namespace MinecraftSpelunking.Application.Account.Services.Implementations
             }
 
             return _accounts.TryGetUserById(userId);
+        }
+
+        public bool AtLeastOneUserExists()
+        {
+            return _accounts.AtLeastOneUserExists();
+        }
+
+        public User Create(string email, string password, params UserRoleTypeEnum[] roles)
+        {
+            return _accounts.Create(email, password, roles);
         }
     }
 }
