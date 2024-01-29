@@ -2,14 +2,21 @@
 using Microsoft.EntityFrameworkCore;
 using MinecraftSpelunking.Common.Account.Database;
 using MinecraftSpelunking.Common.Account.Entities;
+using MinecraftSpelunking.Common.Minecraft.Database;
+using MinecraftSpelunking.Common.Minecraft.Entities;
 
 namespace MinecraftSpelunking.Domain.Database
 {
     public sealed class DataContext : IdentityDbContext<User, UserRole, int>
     {
+        public DbSet<ReservedAddressBlock> ReservedAddressBlocks { get; set; }
+        public DbSet<AddressBlock> AddressBlocks { get; set; }
+        public DbSet<AddressBlockAssignment> AddressBlockAssignments { get; set; }
+        public DbSet<JavaServer> JavaServers { get; set; }
+        public DbSet<ServerIcon> ServerIcons { get; set; }
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -17,6 +24,7 @@ namespace MinecraftSpelunking.Domain.Database
             base.OnModelCreating(builder);
 
             AccountContextConfiguration.OnModelCreating(builder);
+            MinecraftContextConfiguration.OnModelCreating(builder);
 
             // any guid
             //const string ADMIN_ID = "a18be9c0-aa65-4af8-bd17-00bd9344e575";

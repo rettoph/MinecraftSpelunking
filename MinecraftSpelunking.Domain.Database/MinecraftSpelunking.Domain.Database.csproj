@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MinecraftSpelunking.Common.Account\MinecraftSpelunking.Common.Account.csproj" />
     <ProjectReference Include="..\MinecraftSpelunking.Common.Database\MinecraftSpelunking.Common.Database.csproj" />
+    <ProjectReference Include="..\MinecraftSpelunking.Common.Minecraft\MinecraftSpelunking.Common.Minecraft.csproj" />
   </ItemGroup>
 
   <ItemGroup>

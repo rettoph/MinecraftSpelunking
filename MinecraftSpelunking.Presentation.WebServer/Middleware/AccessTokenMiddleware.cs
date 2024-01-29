@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http.Features;
 using MinecraftSpelunking.Application.Account.Services;
-using MinecraftSpelunking.Common.Account;
 using MinecraftSpelunking.Common.Account.Entities;
 using MinecraftSpelunking.Presentation.WebServer.Attributes;
 using System.Net;
@@ -36,15 +35,11 @@ namespace MinecraftSpelunking.Presentation.WebServer.Middleware
                 return;
             }
 
-            User? user = accounts.TryGetUserByApiAccessToken(accessToken);
-            if (user is null)
-            {
-                context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                return;
-            }
+            User? user = await accounts.TrySignInWithApiAccessToken(
+                apiAccessToken: accessToken,
+                roles: accessTokenAttributes.SelectMany(x => x.RequiredRoles).Distinct().ToArray());
 
-            UserRoleTypeEnum[] requiredRoles = accessTokenAttributes.SelectMany(x => x.RequiredRoles).Distinct().ToArray();
-            if (accounts.VerifyUserHasAllRoles(user.Id, requiredRoles) == false)
+            if (user is null)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 return;

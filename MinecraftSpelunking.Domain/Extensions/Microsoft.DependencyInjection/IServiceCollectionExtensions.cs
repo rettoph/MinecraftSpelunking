@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MinecraftPinger.Library;
 using MinecraftSpelunking.Common.Account.Entities;
 using MinecraftSpelunking.Common.Account.Services;
+using MinecraftSpelunking.Common.Minecraft.Services;
 using MinecraftSpelunking.Domain.Account.Services;
 using MinecraftSpelunking.Domain.Database;
+using MinecraftSpelunking.Domain.Minecraft.Services;
 
 namespace MinecraftSpelunking.Domain.Extensions.Microsoft.DependencyInjection
 {
@@ -23,7 +26,12 @@ namespace MinecraftSpelunking.Domain.Extensions.Microsoft.DependencyInjection
                 options.SignIn.RequireConfirmedAccount = true;
             }).AddEntityFrameworkStores<DataContext>();
 
-            return services.AddScoped<IAccountService, AccountService>();
+            return services.AddScoped<IAccountService, AccountService>()
+                .AddScoped<IReservedAddressBlockService, ReservedAddressBlockService>()
+                .AddScoped<IAddressBlockService, AddressBlockService>()
+                .AddScoped<IServerIconService, ServerIconService>()
+                .AddTransient<JavaPinger>()
+                .AddScoped<IJavaServerService, JavaServerService>();
         }
     }
 }

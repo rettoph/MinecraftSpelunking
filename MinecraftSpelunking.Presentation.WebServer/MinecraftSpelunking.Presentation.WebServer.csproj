@@ -21,8 +21,4 @@
     <ProjectReference Include="..\MinecraftSpelunking.Domain\MinecraftSpelunking.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\Api\v1\" />
-  </ItemGroup>
-
 </Project>

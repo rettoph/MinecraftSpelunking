@@ -216,13 +216,13 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                             Id = 1,
                             AccessFailedCount = 0,
                             ApiAccessToken = "12345",
-                            ConcurrencyStamp = "9cf7d260-1e74-4a14-8a49-e5acc2f28bbc",
+                            ConcurrencyStamp = "2b18af2f-4cb1-41f1-804c-355962e95224",
                             Email = "admin@retto.ph",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@retto.ph",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEC3F32mDG3G+BaxNR+xqMVRLWDktEJR5qRDcwUyFfdlshJt4PDAW03HBP22yAWYtCw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELrJ9SHeZcd4EoK5e2oelF+so3cb+tqrlFOh9HrHQCOVLhlgHjJZNDMGq+v2BFDXew==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -286,6 +286,233 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                         });
                 });
 
+            modelBuilder.Entity("MinecraftSpelunking.Common.Minecraft.Entities.AddressBlock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Network")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AddressBlocks");
+                });
+
+            modelBuilder.Entity("MinecraftSpelunking.Common.Minecraft.Entities.AddressBlockAssignment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AssignedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("BlockId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlockId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AddressBlockAssignments");
+                });
+
+            modelBuilder.Entity("MinecraftSpelunking.Common.Minecraft.Entities.JavaServer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AddressBlockId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Host")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("IconId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastOnlineAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PlayersMax")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlayersOnline")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PlayersSample")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Port")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Version")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("Host", "Port");
+
+                    b.HasIndex("AddressBlockId");
+
+                    b.HasIndex("IconId");
+
+                    b.ToTable("JavaServers");
+                });
+
+            modelBuilder.Entity("MinecraftSpelunking.Common.Minecraft.Entities.ReservedAddressBlock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Network")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReservedAddressBlocks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Network = "0.0.0.0/8"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Network = "10.0.0.0/8"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Network = "100.64.0.0/10"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Network = "127.0.0.0/8"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Network = "169.254.0.0/16"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Network = "172.16.0.0/12"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Network = "192.0.0.0/24"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Network = "192.0.2.0/24"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Network = "192.88.99.0/24"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Network = "192.168.0.0/16"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Network = "198.18.0.0/15"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Network = "198.51.100.0/24"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Network = "203.0.113.0/24"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Network = "224.0.0.0/4"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Network = "240.0.0.0/4"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Network = "255.255.255.255/32"
+                        });
+                });
+
+            modelBuilder.Entity("MinecraftSpelunking.Common.Minecraft.Entities.ServerIcon", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Hash")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServerIcons");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("MinecraftSpelunking.Common.Account.Entities.UserRole", null)
@@ -335,6 +562,47 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MinecraftSpelunking.Common.Minecraft.Entities.AddressBlockAssignment", b =>
+                {
+                    b.HasOne("MinecraftSpelunking.Common.Minecraft.Entities.AddressBlock", "Block")
+                        .WithMany("Assignments")
+                        .HasForeignKey("BlockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MinecraftSpelunking.Common.Account.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Block");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MinecraftSpelunking.Common.Minecraft.Entities.JavaServer", b =>
+                {
+                    b.HasOne("MinecraftSpelunking.Common.Minecraft.Entities.AddressBlock", "AddressBlock")
+                        .WithMany()
+                        .HasForeignKey("AddressBlockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MinecraftSpelunking.Common.Minecraft.Entities.ServerIcon", "Icon")
+                        .WithMany()
+                        .HasForeignKey("IconId");
+
+                    b.Navigation("AddressBlock");
+
+                    b.Navigation("Icon");
+                });
+
+            modelBuilder.Entity("MinecraftSpelunking.Common.Minecraft.Entities.AddressBlock", b =>
+                {
+                    b.Navigation("Assignments");
                 });
 #pragma warning restore 612, 618
         }

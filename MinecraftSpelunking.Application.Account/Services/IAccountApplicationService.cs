@@ -7,12 +7,10 @@ namespace MinecraftSpelunking.Application.Account.Services
     public interface IAccountApplicationService
     {
         User? TryGetUserById(int userId);
-        User? TryGetUserByApiAccessToken(string accessToken);
 
         User? TryGetCurrentUser();
         Task<bool> TrySignOutAsync();
         Task<SignInAttemptResult> TrySignInWithEmailAndPasswordAsync(string email, string password);
-
-        bool VerifyUserHasAllRoles(int userId, params UserRoleTypeEnum[] roles);
+        Task<User?> TrySignInWithApiAccessToken(string apiAccessToken, params UserRoleTypeEnum[] roles);
     }
 }

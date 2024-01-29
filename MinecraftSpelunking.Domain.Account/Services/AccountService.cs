@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using MinecraftSpelunking.Common.Account;
 using MinecraftSpelunking.Common.Account.Entities;
 using MinecraftSpelunking.Common.Account.Services;
@@ -29,11 +30,6 @@ namespace MinecraftSpelunking.Domain.Account.Services
             return _dataContext.Users.First(x => x.Id == userId);
         }
 
-        public User? TryGetUserByApiAccessToken(string apiAccessToken)
-        {
-            return _dataContext.Users.FirstOrDefault(x => x.ApiAccessToken == apiAccessToken);
-        }
-
         public async Task<SignInAttemptResultEnum> TrySignInWithEmailAndPasswordAsync(string email, string password)
         {
             User? user = await this.TryGetUserByEmailAsync(email);
@@ -52,24 +48,36 @@ namespace MinecraftSpelunking.Domain.Account.Services
             return SignInAttemptResultEnum.Failure;
         }
 
-        public async Task SignOutAsync()
+        public async Task<User?> TrySignInWithApiAccessToken(string apiAccessToken, params UserRoleTypeEnum[] roles)
         {
-            await _signInManager.SignOutAsync();
-        }
+            User? user = _dataContext.Users.FirstOrDefault(x => x.ApiAccessToken == apiAccessToken);
+            if (user is null)
+            {
+                return user;
+            }
 
-        public bool VerifyUserHasAllRoles(int userId, params UserRoleTypeEnum[] roles)
-        {
-            var userRoles = _dataContext.UserRoles.Where(x => x.UserId == userId).ToList();
+            List<IdentityUserRole<int>> userRoles = _dataContext.UserRoles.Where(x => x.UserId == user.Id).ToList();
 
             foreach (UserRoleTypeEnum role in roles)
             {
                 if (userRoles.Any(x => x.RoleId == (int)role) == false)
                 {
-                    return false;
+                    return null;
                 }
             }
 
-            return true;
+            await _signInManager.SignInAsync(user, new AuthenticationProperties()
+            {
+                AllowRefresh = false,
+                IsPersistent = false
+            });
+
+            return user;
+        }
+
+        public async Task SignOutAsync()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }

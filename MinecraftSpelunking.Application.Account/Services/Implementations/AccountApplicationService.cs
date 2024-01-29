@@ -23,11 +23,6 @@ namespace MinecraftSpelunking.Application.Account.Services.Implementations
             return _accounts.TryGetUserById(userId);
         }
 
-        public User? TryGetUserByApiAccessToken(string accessToken)
-        {
-            return _accounts.TryGetUserByApiAccessToken(accessToken);
-        }
-
         public async Task<bool> TrySignOutAsync()
         {
             if (this.TryGetCurrentUser() is null)
@@ -58,6 +53,11 @@ namespace MinecraftSpelunking.Application.Account.Services.Implementations
             return SignInAttemptResult.Success(user);
         }
 
+        public async Task<User?> TrySignInWithApiAccessToken(string apiAccessToken, params UserRoleTypeEnum[] roles)
+        {
+            return await _accounts.TrySignInWithApiAccessToken(apiAccessToken, roles);
+        }
+
         public User? TryGetCurrentUser()
         {
             Claim? userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier);
@@ -68,11 +68,6 @@ namespace MinecraftSpelunking.Application.Account.Services.Implementations
             }
 
             return _accounts.TryGetUserById(userId);
-        }
-
-        public bool VerifyUserHasAllRoles(int userId, params UserRoleTypeEnum[] roles)
-        {
-            return _accounts.VerifyUserHasAllRoles(userId, roles);
         }
     }
 }

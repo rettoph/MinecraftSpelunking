@@ -1,12 +1,14 @@
 using MinecraftSpelunking.Application.Extensions.Microsoft.DependencyInjection;
 using MinecraftSpelunking.Domain.Extensions.Microsoft.DependencyInjection;
+using MinecraftSpelunking.Presentation.WebServer.AutoMapper;
 using MinecraftSpelunking.Presentation.WebServer.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .RegisterDomainServices(builder.Configuration)
-    .RegisterApplicationServices();
+    .RegisterApplicationServices()
+    .AddAutoMapper(typeof(WebServerMapperProfile));
 
 
 // Add services to the container.
