@@ -362,4 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /MinecraftSpelunking.Presentation.WebServer/wwwroot/icons/*.png
-/*/appsettings.json
+/**/appsettings.json
