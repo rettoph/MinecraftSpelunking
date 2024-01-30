@@ -8,7 +8,16 @@ using MinecraftSpelunking.Presentation.WebServer.Middleware;
 
 var builder = WebApplication.CreateBuilder();
 
-builder.WebHost.UseKestrel().UseUrls(builder.Configuration["Url"] ?? throw new Exception());
+builder.WebHost.UseKestrel(k =>
+{
+    k.ConfigureHttpsDefaults(h =>
+    {
+#if RELEASE
+        h.ClientCertificateMode = ClientCertificateMode.RequireCertificate;
+        h.UseLettuceEncrypt(k.ApplicationServices);
+#endif
+    });
+}).UseUrls(builder.Configuration["Url"] ?? throw new Exception());
 
 builder.Services
     .RegisterDomainServices(builder.Configuration)
@@ -19,6 +28,10 @@ builder.Services
         mapper.AddCollectionMappers();
         mapper.UseEntityFrameworkCoreModel<DataContext>(provider);
     }, typeof(DataContext).Assembly);
+
+#if RELEASE
+builder.Services.AddLettuceEncrypt();
+#endif
 
 
 // Add services to the container.

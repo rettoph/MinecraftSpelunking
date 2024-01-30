@@ -9,7 +9,7 @@ namespace MinecraftSpelunking.Domain.Database
         {
             var dbContextBuilder = new DbContextOptionsBuilder<DataContext>();
 
-            var connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=MinecraftSpelunking;Trusted_Connection=True;MultipleActiveResultSets=true";
+            var connectionString = "";
 
             dbContextBuilder.UseSqlServer(connectionString);
 
