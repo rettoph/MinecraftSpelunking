@@ -9,22 +9,19 @@ namespace MinecraftSpelunking.Presentation.WebServer.Controllers
 {
     public class AccountController : BaseController
     {
-        private readonly IAccountApplicationService _accounts;
-
-        public AccountController(IAccountApplicationService accounts)
+        public AccountController(IAccountApplicationService accounts) : base(accounts)
         {
-            _accounts = accounts;
         }
 
         [HttpGet]
         public async Task<IActionResult> Login()
         {
-            if (_accounts.AtLeastOneUserExists() == false)
+            if (this.Accounts.Any() == false)
             {
                 return RedirectToAction(nameof(CreateAdminAccount), "Account");
             }
 
-            await _accounts.TrySignOutAsync();
+            await this.Accounts.TrySignOutAsync();
 
             return View();
         }
@@ -34,7 +31,7 @@ namespace MinecraftSpelunking.Presentation.WebServer.Controllers
         {
             string returnUrl = Url.Content("~/");
 
-            SignInAttemptResult result = await _accounts.TrySignInWithEmailAndPasswordAsync(input.Email, input.Password);
+            SignInAttemptResult result = await this.Accounts.TrySignInWithEmailAndPasswordAsync(input.Email, input.Password);
 
             if (result.Result == SignInAttemptResultEnum.Success)
             {
@@ -51,7 +48,7 @@ namespace MinecraftSpelunking.Presentation.WebServer.Controllers
         [Authorize]
         public async Task<IActionResult> Logout()
         {
-            await _accounts.TrySignOutAsync();
+            await this.Accounts.TrySignOutAsync();
 
             string returnUrl = Url.Content("~/");
             return LocalRedirect(returnUrl);
@@ -75,7 +72,7 @@ namespace MinecraftSpelunking.Presentation.WebServer.Controllers
                 }));
             }
 
-            _accounts.Create(request.Email, request.Password, UserRoleTypeEnum.User, UserRoleTypeEnum.Admin);
+            this.Accounts.Create(request.Email, request.Password, UserRoleTypeEnum.User, UserRoleTypeEnum.Admin);
 
             string returnUrl = Url.Content("~/");
             return Task.FromResult<IActionResult>(LocalRedirect(returnUrl));

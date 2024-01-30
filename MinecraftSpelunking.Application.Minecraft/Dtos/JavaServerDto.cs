@@ -14,6 +14,10 @@ namespace MinecraftSpelunking.Application.Minecraft.Dtos
         public int PlayersMax { get; set; }
         public PlayerDto[] PlayersSample { get; set; } = Array.Empty<PlayerDto>();
         public ChatDto Description { get; set; } = ChatDto.Empty;
+        public string DescriptionNormalized { get; set; } = string.Empty;
+        public ModTypeDto? ModType { get; set; }
+        public ModVersionDto[] ModVersions { get; set; } = [];
+        public ModPackDataDto? ModPackData { get; set; }
         public ServerIconDto? Icon { get; set; }
 
         public ServerStatusEnum Status { get; set; }

@@ -1,4 +1,7 @@
+using AutoMapper;
+using AutoMapper.EquivalencyExpression;
 using MinecraftSpelunking.Application.Extensions.Microsoft.DependencyInjection;
+using MinecraftSpelunking.Domain.Database;
 using MinecraftSpelunking.Domain.Extensions.Microsoft.DependencyInjection;
 using MinecraftSpelunking.Presentation.WebServer.AutoMapper;
 using MinecraftSpelunking.Presentation.WebServer.Middleware;
@@ -8,7 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .RegisterDomainServices(builder.Configuration)
     .RegisterApplicationServices()
-    .AddAutoMapper(typeof(WebServerMapperProfile));
+    .AddAutoMapper(typeof(WebServerMapperProfile))
+    .AddAutoMapper((provider, mapper) =>
+    {
+        mapper.AddCollectionMappers();
+        mapper.UseEntityFrameworkCoreModel<DataContext>(provider);
+    }, typeof(DataContext).Assembly);
 
 
 // Add services to the container.

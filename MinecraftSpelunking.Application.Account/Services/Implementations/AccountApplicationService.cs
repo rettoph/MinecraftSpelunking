@@ -65,9 +65,9 @@ namespace MinecraftSpelunking.Application.Account.Services.Implementations
             return _accounts.TryGetUserById(userId);
         }
 
-        public bool AtLeastOneUserExists()
+        public bool Any()
         {
-            return _accounts.AtLeastOneUserExists();
+            return _accounts.Any();
         }
 
         public User Create(string email, string password, params UserRoleTypeEnum[] roles)

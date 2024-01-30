@@ -37,13 +37,14 @@ namespace MinecraftSpelunking.Presentation.WebServer.Controllers.Api.v1
         {
             if (results is not null)
             {
-                ServerDto[] javaServers = _mapper.Map<ServerDto[]>(results.JavaServers);
-                _addressBlocks.Complete(results.Id, javaServers);
+                ServerDto[] javaServerDtos = _mapper.Map<ServerDto[]>(results.JavaServers);
+                _addressBlocks.Complete(results.Id, javaServerDtos);
             }
 
-            AddressBlockDto block = _addressBlocks.GetAssignment(_accounts.TryGetCurrentUser()!);
+            AddressBlockDto? blockDto = _addressBlocks.GetAssignment(_accounts.TryGetCurrentUser()!);
+            AddressBlockModel? blockModel = _mapper.Map<AddressBlockModel?>(blockDto);
 
-            return Ok(block);
+            return Ok(blockDto);
         }
     }
 }

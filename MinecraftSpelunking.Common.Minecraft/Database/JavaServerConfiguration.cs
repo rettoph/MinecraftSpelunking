@@ -23,6 +23,9 @@ namespace MinecraftSpelunking.Common.Minecraft.Database
                 .HasConversion(
                     x => MinecraftJsonSerializer.Serialize(x),
                     x => MinecraftJsonSerializer.Deserialize<Chat>(x));
+
+            builder.HasMany(x => x.ModVersions)
+                .WithMany(x => x.JavaServers);
         }
     }
 }

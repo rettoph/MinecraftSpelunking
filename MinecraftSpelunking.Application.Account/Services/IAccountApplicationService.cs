@@ -13,7 +13,7 @@ namespace MinecraftSpelunking.Application.Account.Services
         Task<SignInAttemptResult> TrySignInWithEmailAndPasswordAsync(string email, string password);
         Task<User?> TrySignInWithApiAccessToken(string apiAccessToken, params UserRoleTypeEnum[] roles);
 
-        bool AtLeastOneUserExists();
+        bool Any();
 
         User Create(string email, string password, params UserRoleTypeEnum[] roles);
     }

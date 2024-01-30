@@ -9,6 +9,6 @@ namespace MinecraftSpelunking.Common.Minecraft.Services
 
         void Complete(int id, Server[] javaDiscoveries);
 
-        AddressBlock GetAssignment(User user);
+        AddressBlock? GetAssignment(User user);
     }
 }

@@ -73,6 +73,34 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Mod",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mod", x => x.Id);
+                    table.UniqueConstraint("AK_Mod_Name", x => x.Name);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ModTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ModTypes", x => x.Id);
+                    table.UniqueConstraint("AK_ModTypes_Name", x => x.Name);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ReservedAddressBlocks",
                 columns: table => new
                 {
@@ -233,6 +261,27 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ModVersions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ModId = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ModVersions", x => x.Id);
+                    table.UniqueConstraint("AK_ModVersions_ModId_Version", x => new { x.ModId, x.Version });
+                    table.ForeignKey(
+                        name: "FK_ModVersions_Mod_ModId",
+                        column: x => x.ModId,
+                        principalTable: "Mod",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "JavaServers",
                 columns: table => new
                 {
@@ -245,6 +294,7 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                     PlayersMax = table.Column<int>(type: "int", nullable: false),
                     PlayersSample = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ModTypeId = table.Column<int>(type: "int", nullable: false),
                     IconId = table.Column<int>(type: "int", nullable: true),
                     AddressBlockId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
@@ -262,10 +312,40 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_JavaServers_ModTypes_ModTypeId",
+                        column: x => x.ModTypeId,
+                        principalTable: "ModTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_JavaServers_ServerIcons_IconId",
                         column: x => x.IconId,
                         principalTable: "ServerIcons",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "JavaServerModVersion",
+                columns: table => new
+                {
+                    JavaServersId = table.Column<int>(type: "int", nullable: false),
+                    ModVersionsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JavaServerModVersion", x => new { x.JavaServersId, x.ModVersionsId });
+                    table.ForeignKey(
+                        name: "FK_JavaServerModVersion_JavaServers_JavaServersId",
+                        column: x => x.JavaServersId,
+                        principalTable: "JavaServers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_JavaServerModVersion_ModVersions_ModVersionsId",
+                        column: x => x.ModVersionsId,
+                        principalTable: "ModVersions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -351,6 +431,11 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_JavaServerModVersion_ModVersionsId",
+                table: "JavaServerModVersion",
+                column: "ModVersionsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_JavaServers_AddressBlockId",
                 table: "JavaServers",
                 column: "AddressBlockId");
@@ -359,6 +444,11 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                 name: "IX_JavaServers_IconId",
                 table: "JavaServers",
                 column: "IconId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JavaServers_ModTypeId",
+                table: "JavaServers",
+                column: "ModTypeId");
         }
 
         /// <inheritdoc />
@@ -383,7 +473,7 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "JavaServers");
+                name: "JavaServerModVersion");
 
             migrationBuilder.DropTable(
                 name: "ReservedAddressBlocks");
@@ -395,10 +485,22 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "JavaServers");
+
+            migrationBuilder.DropTable(
+                name: "ModVersions");
+
+            migrationBuilder.DropTable(
                 name: "AddressBlocks");
 
             migrationBuilder.DropTable(
+                name: "ModTypes");
+
+            migrationBuilder.DropTable(
                 name: "ServerIcons");
+
+            migrationBuilder.DropTable(
+                name: "Mod");
         }
     }
 }

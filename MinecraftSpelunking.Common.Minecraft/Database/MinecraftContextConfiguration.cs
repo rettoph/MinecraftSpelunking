@@ -10,6 +10,10 @@ namespace MinecraftSpelunking.Common.Minecraft.Database
             builder.ApplyConfiguration(new ReservedAddressBlockConfiguration());
             builder.ApplyConfiguration(new AddressBlockConfiguration());
             builder.ApplyConfiguration(new JavaServerConfiguration());
+            builder.ApplyConfiguration(new ModTypeConfiguration());
+            builder.ApplyConfiguration(new ModConfiguration());
+            builder.ApplyConfiguration(new ModVersionConfiguration());
+            builder.ApplyConfiguration(new ModPackDataConfiguration());
         }
     }
 }

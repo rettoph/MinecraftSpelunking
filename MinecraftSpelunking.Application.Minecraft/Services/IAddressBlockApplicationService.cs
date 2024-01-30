@@ -7,6 +7,6 @@ namespace MinecraftSpelunking.Application.Minecraft.Services
     {
         void Complete(int id, ServerDto[] javaDiscoveries);
 
-        AddressBlockDto GetAssignment(User user);
+        AddressBlockDto? GetAssignment(User user);
     }
 }

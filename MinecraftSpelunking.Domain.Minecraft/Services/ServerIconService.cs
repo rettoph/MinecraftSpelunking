@@ -45,7 +45,7 @@ namespace MinecraftSpelunking.Domain.Minecraft.Services
             ServerIcon instance = new ServerIcon()
             {
                 Hash = this.GetBase64Hash(base64),
-                Path = Path.Combine(IconPath, name)
+                Path = "/" + Path.Combine(IconPath, name).Replace("\\", "/")
             };
 
             _context.Add(instance);

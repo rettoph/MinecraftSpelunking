@@ -3,35 +3,37 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Presentation.WebServer", "MinecraftSpelunking.Presentation.WebServer\MinecraftSpelunking.Presentation.WebServer.csproj", "{B6E6D6C3-7FEB-4C98-B96A-6B80032CFA4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Presentation.WebServer", "MinecraftSpelunking.Presentation.WebServer\MinecraftSpelunking.Presentation.WebServer.csproj", "{B6E6D6C3-7FEB-4C98-B96A-6B80032CFA4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Domain.Database", "MinecraftSpelunking.Domain.Database\MinecraftSpelunking.Domain.Database.csproj", "{F6B289D2-4B0F-499E-8056-CC1671BCB6E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Domain.Database", "MinecraftSpelunking.Domain.Database\MinecraftSpelunking.Domain.Database.csproj", "{F6B289D2-4B0F-499E-8056-CC1671BCB6E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Common.Account", "MinecraftSpelunking.Common.Account\MinecraftSpelunking.Common.Account.csproj", "{34041CC6-6AF1-4EDB-8906-E1B9CD17C939}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Common.Account", "MinecraftSpelunking.Common.Account\MinecraftSpelunking.Common.Account.csproj", "{34041CC6-6AF1-4EDB-8906-E1B9CD17C939}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Common", "MinecraftSpelunking.Common\MinecraftSpelunking.Common.csproj", "{F756E032-60EB-4E82-ADF3-AE0A579E74DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Common", "MinecraftSpelunking.Common\MinecraftSpelunking.Common.csproj", "{F756E032-60EB-4E82-ADF3-AE0A579E74DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Common.Database", "MinecraftSpelunking.Common.Database\MinecraftSpelunking.Common.Database.csproj", "{A6FE3A4B-9738-4BC3-BB25-DDE9FC8231D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Common.Database", "MinecraftSpelunking.Common.Database\MinecraftSpelunking.Common.Database.csproj", "{A6FE3A4B-9738-4BC3-BB25-DDE9FC8231D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Domain.Account", "MinecraftSpelunking.Domain.Account\MinecraftSpelunking.Domain.Account.csproj", "{55AF5E47-FC34-46BA-925A-E2DA13565EA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Domain.Account", "MinecraftSpelunking.Domain.Account\MinecraftSpelunking.Domain.Account.csproj", "{55AF5E47-FC34-46BA-925A-E2DA13565EA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Application.Account", "MinecraftSpelunking.Application.Account\MinecraftSpelunking.Application.Account.csproj", "{FA3A6D4B-FB0D-412C-A69D-74D863389B6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Application.Account", "MinecraftSpelunking.Application.Account\MinecraftSpelunking.Application.Account.csproj", "{FA3A6D4B-FB0D-412C-A69D-74D863389B6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Domain", "MinecraftSpelunking.Domain\MinecraftSpelunking.Domain.csproj", "{5A7C3D83-95B4-4796-BC26-1FC5DAB16209}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Domain", "MinecraftSpelunking.Domain\MinecraftSpelunking.Domain.csproj", "{5A7C3D83-95B4-4796-BC26-1FC5DAB16209}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunker.Application", "MinecraftSpelunker.Application\MinecraftSpelunker.Application.csproj", "{4F2586EE-4C41-4993-818B-A4F7497F8800}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunker.Application", "MinecraftSpelunker.Application\MinecraftSpelunker.Application.csproj", "{4F2586EE-4C41-4993-818B-A4F7497F8800}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Common.Minecraft", "MinecraftSpelunking.Common.Minecraft\MinecraftSpelunking.Common.Minecraft.csproj", "{36636BB0-8E74-48F5-BBBE-085492DF1B24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Common.Minecraft", "MinecraftSpelunking.Common.Minecraft\MinecraftSpelunking.Common.Minecraft.csproj", "{36636BB0-8E74-48F5-BBBE-085492DF1B24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Domain.Minecraft", "MinecraftSpelunking.Domain.Minecraft\MinecraftSpelunking.Domain.Minecraft.csproj", "{759FF6DF-07AD-4982-9497-E20279E19D89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Domain.Minecraft", "MinecraftSpelunking.Domain.Minecraft\MinecraftSpelunking.Domain.Minecraft.csproj", "{759FF6DF-07AD-4982-9497-E20279E19D89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Presentation.Client", "MinecraftSpelunking.Presentation.Client\MinecraftSpelunking.Presentation.Client.csproj", "{39BE8122-E57E-4292-AE79-F0A29EF65A83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Presentation.Client", "MinecraftSpelunking.Presentation.Client\MinecraftSpelunking.Presentation.Client.csproj", "{39BE8122-E57E-4292-AE79-F0A29EF65A83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Application.Minecraft", "MinecraftSpelunking.Application.Minecraft\MinecraftSpelunking.Application.Minecraft.csproj", "{2DE01120-955B-4A9C-85FE-3DD40A6D9080}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Application.Minecraft", "MinecraftSpelunking.Application.Minecraft\MinecraftSpelunking.Application.Minecraft.csproj", "{2DE01120-955B-4A9C-85FE-3DD40A6D9080}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libraries", "libraries", "{7E11A155-A33E-4945-B596-97C30A8FE3D6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftPinger.Library", "libraries\MinecraftPinger\src\MinecraftPinger.Library\MinecraftPinger.Library.csproj", "{7E36B7EA-AB95-4D88-9C56-AF5D934DDB66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunker.Application.Common", "MinecraftSpelunker.Application.Common\MinecraftSpelunker.Application.Common.csproj", "{0D6D2E61-64CE-4875-A79A-DD5966C13634}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +97,10 @@ Global
 		{7E36B7EA-AB95-4D88-9C56-AF5D934DDB66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E36B7EA-AB95-4D88-9C56-AF5D934DDB66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E36B7EA-AB95-4D88-9C56-AF5D934DDB66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D6D2E61-64CE-4875-A79A-DD5966C13634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D6D2E61-64CE-4875-A79A-DD5966C13634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D6D2E61-64CE-4875-A79A-DD5966C13634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D6D2E61-64CE-4875-A79A-DD5966C13634}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

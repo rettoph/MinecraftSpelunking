@@ -5,6 +5,8 @@ namespace MinecraftSpelunking.Common.Minecraft.Entities
 {
     public class JavaServer : BaseEntity
     {
+        public static readonly JavaServer Empty = new();
+
         public string Host { get; set; } = string.Empty;
         public int Port { get; set; }
 
@@ -13,6 +15,11 @@ namespace MinecraftSpelunking.Common.Minecraft.Entities
         public int PlayersMax { get; set; }
         public Player[] PlayersSample { get; set; } = Array.Empty<Player>();
         public Chat Description { get; set; } = Chat.Empty;
+        public string DescriptionNormalized { get; set; } = string.Empty;
+        public ModType? ModType { get; set; }
+        public List<ModVersion> ModVersions { get; set; } = [];
+        public ModPackData? ModPackData { get; set; }
+
         public ServerIcon? Icon { get; set; }
         public AddressBlock AddressBlock { get; set; } = default!;
 

@@ -10,7 +10,9 @@ namespace MinecraftSpelunking.Domain.Minecraft.Services
 {
     public class AddressBlockService : IAddressBlockService
     {
-        private readonly TimeSpan ReassignInterval = TimeSpan.FromMinutes(10);
+        private static readonly object _lock = new();
+
+        private readonly TimeSpan ReassignInterval = TimeSpan.FromMinutes(60);
 
         private readonly IReservedAddressBlockService _reservedAddressBlocks;
         private readonly IJavaServerService _javaServers;
@@ -37,7 +39,7 @@ namespace MinecraftSpelunking.Domain.Minecraft.Services
 
             foreach (Server javaDiscovery in javaDiscoveries)
             {
-                _javaServers.Add(javaDiscovery.Host, javaDiscovery.Port, block);
+                _javaServers.AddAsync(javaDiscovery.Host, javaDiscovery.Port, block);
             }
 
             block.Status = AddressBlockStatusEnum.Scanned;
@@ -46,59 +48,68 @@ namespace MinecraftSpelunking.Domain.Minecraft.Services
             _context.SaveChanges();
         }
 
-        public AddressBlock GetAssignment(User user)
+        public AddressBlock? GetAssignment(User user)
         {
-            DateTime reassignTime = DateTime.Now.Subtract(ReassignInterval);
-            AddressBlock? old = _context.AddressBlocks
-                .Where(x => x.Status == AddressBlockStatusEnum.Assigned)
-                .Where(x => reassignTime > x.ModifiedAt)
-                .FirstOrDefault();
-
-            if (old is not null)
+            lock (_lock)
             {
-                this.Assign(old, user);
+                DateTime reassignTime = DateTime.Now.Subtract(ReassignInterval);
+                AddressBlock? old = _context.AddressBlocks
+                    .Where(x => x.Status == AddressBlockStatusEnum.Assigned)
+                    .Where(x => reassignTime > x.ModifiedAt)
+                    .FirstOrDefault();
+
+                if (old is not null)
+                {
+                    this.Assign(old, user);
+                    _context.SaveChanges();
+
+                    return old;
+                }
+
+                AddressBlock? last = _context.AddressBlocks.OrderByDescending(x => x.Id).FirstOrDefault();
+                IPNetwork2? network = default!;
+                if (last is null)
+                {
+                    network = IPNetwork2.Parse($"24.116.124.0/{AddressBlock.CIDR}");
+                }
+                else
+                {
+                    network = last.Network.CalculateNextNetwork();
+                }
+
+                AddressBlock? next = null;
+                do
+                {
+                    if (network is null)
+                    {
+                        next = null;
+                        break;
+                    }
+
+                    next = new AddressBlock()
+                    {
+                        Network = network,
+                        Status = _reservedAddressBlocks.IsReserved(network) ? AddressBlockStatusEnum.Reserved : AddressBlockStatusEnum.Available,
+                        ModifiedAt = DateTime.Now
+                    };
+
+                    _context.Add(next);
+
+                    if (next.Status == AddressBlockStatusEnum.Reserved)
+                    {
+                        network = network.CalculateNextNetwork();
+                    }
+                    else if (next.Status == AddressBlockStatusEnum.Available)
+                    {
+                        next.Status = AddressBlockStatusEnum.Assigned;
+                        this.Assign(next, user);
+                    }
+                } while (next.Status != AddressBlockStatusEnum.Assigned);
+
                 _context.SaveChanges();
 
-                return old;
+                return next;
             }
-
-            AddressBlock? last = _context.AddressBlocks.OrderByDescending(x => x.Id).FirstOrDefault();
-            IPNetwork2 network = default!;
-            if (last is null)
-            {
-                network = IPNetwork2.Parse($"0.0.0.0/{AddressBlock.CIDR}");
-            }
-            else
-            {
-                network = last.Network.CalculateNextNetwork();
-            }
-
-            AddressBlock next = default!;
-            do
-            {
-                next = new AddressBlock()
-                {
-                    Network = network,
-                    Status = _reservedAddressBlocks.IsReserved(network) ? AddressBlockStatusEnum.Reserved : AddressBlockStatusEnum.Available,
-                    ModifiedAt = DateTime.Now
-                };
-
-                _context.Add(next);
-
-                if (next.Status == AddressBlockStatusEnum.Reserved)
-                {
-                    network = network.CalculateNextNetwork();
-                }
-                else if (next.Status == AddressBlockStatusEnum.Available)
-                {
-                    next.Status = AddressBlockStatusEnum.Assigned;
-                    this.Assign(next, user);
-                }
-            } while (next.Status != AddressBlockStatusEnum.Assigned);
-
-            _context.SaveChanges();
-
-            return next;
         }
 
         private void Assign(AddressBlock block, User user)

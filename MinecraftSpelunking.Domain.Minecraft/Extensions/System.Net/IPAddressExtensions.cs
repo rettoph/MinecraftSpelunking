@@ -4,13 +4,21 @@ namespace MinecraftSpelunking.Domain.Minecraft.Extensions.System.Net
 {
     public static class IPAddressExtensions
     {
-        public static IPAddress IncrementIpAddress(this IPAddress ipAddress, uint increment)
+        public static IPAddress? IncrementIpAddress(this IPAddress ipAddress, uint increment)
         {
             byte[] addressBytes = FlipAddressBytes(ipAddress.GetAddressBytes());
             uint ipAsUint = BitConverter.ToUInt32(addressBytes, 0);
-            BitConverter.TryWriteBytes(addressBytes, ipAsUint + increment);
+            try
+            {
+                uint newIpAsUint = checked(ipAsUint + increment);
+                BitConverter.TryWriteBytes(addressBytes, ipAsUint + increment);
 
-            return new IPAddress(FlipAddressBytes(addressBytes));
+                return new IPAddress(FlipAddressBytes(addressBytes));
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private static byte[] FlipAddressBytes(byte[] addressBytes)

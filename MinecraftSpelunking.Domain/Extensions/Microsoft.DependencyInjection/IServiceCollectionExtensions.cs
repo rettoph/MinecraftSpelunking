@@ -7,6 +7,7 @@ using MinecraftSpelunking.Common.Account.Services;
 using MinecraftSpelunking.Common.Minecraft.Services;
 using MinecraftSpelunking.Domain.Account.Services;
 using MinecraftSpelunking.Domain.Database;
+using MinecraftSpelunking.Domain.Database.Services;
 using MinecraftSpelunking.Domain.Minecraft.Services;
 
 namespace MinecraftSpelunking.Domain.Extensions.Microsoft.DependencyInjection
@@ -31,7 +32,8 @@ namespace MinecraftSpelunking.Domain.Extensions.Microsoft.DependencyInjection
                 .AddScoped<IAddressBlockService, AddressBlockService>()
                 .AddScoped<IServerIconService, ServerIconService>()
                 .AddTransient<JavaPinger>()
-                .AddScoped<IJavaServerService, JavaServerService>();
+                .AddScoped<IJavaServerService, JavaServerService>()
+                .AddScoped<EntityMapperService>();
         }
     }
 }

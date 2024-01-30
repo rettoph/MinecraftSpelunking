@@ -25,10 +25,10 @@ namespace MinecraftSpelunking.Application.Minecraft.Services.Implementations
             _addressBlocks.Complete(id, javaDiscoveries);
         }
 
-        public AddressBlockDto GetAssignment(User user)
+        public AddressBlockDto? GetAssignment(User user)
         {
-            AddressBlock block = _addressBlocks.GetAssignment(user);
-            AddressBlockDto blockDto = _mapper.Map<AddressBlockDto>(block);
+            AddressBlock? block = _addressBlocks.GetAssignment(user);
+            AddressBlockDto? blockDto = _mapper.Map<AddressBlockDto?>(block);
 
             return blockDto;
         }

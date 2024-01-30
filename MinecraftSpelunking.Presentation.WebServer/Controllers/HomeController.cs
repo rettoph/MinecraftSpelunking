@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MinecraftSpelunking.Application.Account.Services;
 using MinecraftSpelunking.Presentation.WebServer.Models;
@@ -6,23 +5,20 @@ using System.Diagnostics;
 
 namespace MinecraftSpelunking.Presentation.WebServer.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly IAccountApplicationService _accounts;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(
             IAccountApplicationService accounts,
-            ILogger<HomeController> logger)
+            ILogger<HomeController> logger) : base(accounts)
         {
-            _accounts = accounts;
             _logger = logger;
         }
 
-        [Authorize]
         public IActionResult Index()
         {
-            return View(_accounts.TryGetCurrentUser()!);
+            return RedirectToAction(nameof(Index), "JavaServer");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

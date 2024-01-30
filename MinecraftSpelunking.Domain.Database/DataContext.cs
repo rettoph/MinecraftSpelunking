@@ -14,6 +14,10 @@ namespace MinecraftSpelunking.Domain.Database
         public DbSet<AddressBlockAssignment> AddressBlockAssignments { get; set; }
         public DbSet<JavaServer> JavaServers { get; set; }
         public DbSet<ServerIcon> ServerIcons { get; set; }
+        public DbSet<ModType> ModTypes { get; set; }
+        public DbSet<Mod> Mods { get; set; }
+        public DbSet<ModVersion> ModVersions { get; set; }
+        public DbSet<ModPackData> ModPackData { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

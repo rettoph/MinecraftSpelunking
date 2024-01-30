@@ -25,9 +25,9 @@ namespace MinecraftSpelunking.Domain.Account.Services
             return _userManager.FindByEmailAsync(email);
         }
 
-        public User TryGetUserById(int userId)
+        public User? TryGetUserById(int userId)
         {
-            return _context.Users.First(x => x.Id == userId);
+            return _context.Users.FirstOrDefault(x => x.Id == userId);
         }
 
         public async Task<SignInAttemptResultEnum> TrySignInWithEmailAndPasswordAsync(string email, string password)
@@ -80,7 +80,7 @@ namespace MinecraftSpelunking.Domain.Account.Services
             await _signInManager.SignOutAsync();
         }
 
-        public bool AtLeastOneUserExists()
+        public bool Any()
         {
             return _context.Users.Any();
         }

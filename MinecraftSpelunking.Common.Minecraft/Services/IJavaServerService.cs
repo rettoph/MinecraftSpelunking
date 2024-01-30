@@ -4,6 +4,12 @@ namespace MinecraftSpelunking.Common.Minecraft.Services
 {
     public interface IJavaServerService
     {
-        JavaServer Add(string host, int port, AddressBlock block);
+        Task<JavaServer> GetByIdAsync(int id);
+
+        Task<JavaServer> RefreshAsync(int id);
+
+        Task<JavaServer> AddAsync(string host, int port, AddressBlock block);
+
+        Task<JavaServer[]> GetAllAsync(int count, int offset);
     }
 }

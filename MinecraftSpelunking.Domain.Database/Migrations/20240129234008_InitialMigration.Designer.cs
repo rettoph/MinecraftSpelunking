@@ -12,7 +12,7 @@ using MinecraftSpelunking.Domain.Database;
 namespace MinecraftSpelunking.Domain.Database.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240129073046_InitialMigration")]
+    [Migration("20240129234008_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -24,6 +24,21 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("JavaServerModVersion", b =>
+                {
+                    b.Property<int>("JavaServersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModVersionsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("JavaServersId", "ModVersionsId");
+
+                    b.HasIndex("ModVersionsId");
+
+                    b.ToTable("JavaServerModVersion");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
@@ -332,6 +347,9 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                     b.Property<DateTime>("LastOnlineAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ModTypeId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("datetime2");
 
@@ -363,7 +381,69 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
 
                     b.HasIndex("IconId");
 
+                    b.HasIndex("ModTypeId");
+
                     b.ToTable("JavaServers");
+                });
+
+            modelBuilder.Entity("MinecraftSpelunking.Common.Minecraft.Entities.Mod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("Name");
+
+                    b.ToTable("Mod");
+                });
+
+            modelBuilder.Entity("MinecraftSpelunking.Common.Minecraft.Entities.ModType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("Name");
+
+                    b.ToTable("ModTypes");
+                });
+
+            modelBuilder.Entity("MinecraftSpelunking.Common.Minecraft.Entities.ModVersion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ModId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Version")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("ModId", "Version");
+
+                    b.ToTable("ModVersions");
                 });
 
             modelBuilder.Entity("MinecraftSpelunking.Common.Minecraft.Entities.ReservedAddressBlock", b =>
@@ -485,6 +565,21 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                     b.ToTable("ServerIcons");
                 });
 
+            modelBuilder.Entity("JavaServerModVersion", b =>
+                {
+                    b.HasOne("MinecraftSpelunking.Common.Minecraft.Entities.JavaServer", null)
+                        .WithMany()
+                        .HasForeignKey("JavaServersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MinecraftSpelunking.Common.Minecraft.Entities.ModVersion", null)
+                        .WithMany()
+                        .HasForeignKey("ModVersionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("MinecraftSpelunking.Common.Account.Entities.UserRole", null)
@@ -567,9 +662,28 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                         .WithMany()
                         .HasForeignKey("IconId");
 
+                    b.HasOne("MinecraftSpelunking.Common.Minecraft.Entities.ModType", "ModType")
+                        .WithMany()
+                        .HasForeignKey("ModTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AddressBlock");
 
                     b.Navigation("Icon");
+
+                    b.Navigation("ModType");
+                });
+
+            modelBuilder.Entity("MinecraftSpelunking.Common.Minecraft.Entities.ModVersion", b =>
+                {
+                    b.HasOne("MinecraftSpelunking.Common.Minecraft.Entities.Mod", "Mod")
+                        .WithMany()
+                        .HasForeignKey("ModId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Mod");
                 });
 
             modelBuilder.Entity("MinecraftSpelunking.Common.Minecraft.Entities.AddressBlock", b =>
