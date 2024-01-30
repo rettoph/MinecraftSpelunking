@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using MinecraftSpelunker.Application.Common.Dtos;
 using MinecraftSpelunking.Application.Account.Services;
+using MinecraftSpelunking.Application.Common.Dtos;
 using MinecraftSpelunking.Application.Minecraft.Dtos;
 using MinecraftSpelunking.Application.Minecraft.Services;
 using MinecraftSpelunking.Presentation.WebServer.Models;

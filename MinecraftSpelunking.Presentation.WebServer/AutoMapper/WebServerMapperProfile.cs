@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MinecraftSpelunker.Application.Common.Dtos;
+using MinecraftSpelunking.Application.Common.Dtos;
 using MinecraftSpelunking.Application.Minecraft.Dtos;
 using MinecraftSpelunking.Presentation.WebServer.Models;
 

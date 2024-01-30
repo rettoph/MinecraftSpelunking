@@ -15,7 +15,7 @@ namespace MinecraftSpelunking.Presentation.Client
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            int threadCount = 256;
+            int threadCount = 256 / 2;
 
             ThreadPool.SetMaxThreads(threadCount, threadCount);
 

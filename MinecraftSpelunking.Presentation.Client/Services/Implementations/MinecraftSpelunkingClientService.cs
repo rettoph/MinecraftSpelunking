@@ -2,6 +2,7 @@
 using MinecraftSpelunking.Presentation.Client.Configurations;
 using MinecraftSpelunking.Presentation.Client.Models;
 using System.Collections.Specialized;
+using System.Net;
 using System.Net.Http.Json;
 using System.Web;
 
@@ -17,7 +18,10 @@ namespace MinecraftSpelunking.Presentation.Client.Services.Implementations
 
         public MinecraftSpelunkingClientService(IOptions<MinecraftSpelunkingClientConfiguration> configuration)
         {
-            _client = new HttpClient();
+            _client = new HttpClient()
+            {
+                Timeout = TimeSpan.FromSeconds(60)
+            };
             _baseAddress = configuration.Value.BaseAddress;
             _accessToken = configuration.Value.AccessToken;
         }
@@ -37,8 +41,34 @@ namespace MinecraftSpelunking.Presentation.Client.Services.Implementations
 
             uriBuilder.Query = query.ToString();
 
-            HttpResponseMessage response = await _client.PostAsJsonAsync(uriBuilder.ToString(), body);
+            HttpResponseMessage? response = null;
+
+            int retry = 0;
+            while (retry < 5)
+            {
+                try
+                {
+                    response = await _client.PostAsJsonAsync(uriBuilder.ToString(), body);
+                    break;
+                }
+                catch
+                {
+                    retry++;
+                }
+            }
+
+
+            if (response is null)
+            {
+                return new HttpResponse<TResponse>()
+                {
+                    StatusCode = HttpStatusCode.RequestTimeout,
+                    Content = default
+                };
+            }
+
             TResponse? content = await response.Content.ReadFromJsonAsync<TResponse>();
+
 
             return new HttpResponse<TResponse>()
             {

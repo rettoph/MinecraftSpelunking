@@ -11,8 +11,8 @@ var builder = new HostApplicationBuilder();
 
 builder.Services.Configure<MinecraftSpelunkingClientConfiguration>(configuration =>
 {
-    configuration.BaseAddress = "https://localhost:7244";
-    configuration.AccessToken = "1c5eaada-8b19-4f6e-8f4f-0870ab6f5d12-40e41f41-fe6d-4d0d-91f2-34e7236bd4be";
+    configuration.BaseAddress = "https://mcsp.rettoph.io";
+    configuration.AccessToken = "dfb32051-3720-4b92-8c22-a356f842a508-9d204b86-ec6c-4f0a-b7a6-74758aaf6b14";
 });
 
 builder.Services.AddScoped<IMinecraftSpelunkingClientService, MinecraftSpelunkingClientService>()

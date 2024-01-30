@@ -1,4 +1,4 @@
-﻿namespace MinecraftSpelunker.Application.Common.Dtos
+﻿namespace MinecraftSpelunking.Application.Common.Dtos
 {
     public class PageDto<T>
     {

@@ -1,4 +1,4 @@
-﻿using MinecraftSpelunker.Application.Common.Dtos;
+﻿using MinecraftSpelunking.Application.Common.Dtos;
 using MinecraftSpelunking.Application.Minecraft.Dtos;
 using MinecraftSpelunking.Common.Minecraft.Entities;
 using MinecraftSpelunking.Common.Minecraft.Services;

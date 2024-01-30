@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MinecraftSpelunker.Application\MinecraftSpelunker.Application.csproj" />
+    <ProjectReference Include="..\MinecraftSpelunking.Application\MinecraftSpelunking.Application.csproj" />
     <ProjectReference Include="..\MinecraftSpelunking.Domain\MinecraftSpelunking.Domain.csproj" />
   </ItemGroup>
 

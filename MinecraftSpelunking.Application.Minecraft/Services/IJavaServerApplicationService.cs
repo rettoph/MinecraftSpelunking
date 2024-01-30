@@ -1,4 +1,4 @@
-﻿using MinecraftSpelunker.Application.Common.Dtos;
+﻿using MinecraftSpelunking.Application.Common.Dtos;
 using MinecraftSpelunking.Application.Minecraft.Dtos;
 
 namespace MinecraftSpelunking.Application.Minecraft.Services
