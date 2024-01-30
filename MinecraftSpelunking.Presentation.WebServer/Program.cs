@@ -6,7 +6,9 @@ using MinecraftSpelunking.Domain.Extensions.Microsoft.DependencyInjection;
 using MinecraftSpelunking.Presentation.WebServer.AutoMapper;
 using MinecraftSpelunking.Presentation.WebServer.Middleware;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder();
+
+builder.WebHost.UseKestrel().UseUrls(builder.Configuration["Url"] ?? throw new Exception());
 
 builder.Services
     .RegisterDomainServices(builder.Configuration)
