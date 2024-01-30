@@ -13,7 +13,7 @@ builder.WebHost.UseKestrel(k =>
     k.ConfigureHttpsDefaults(h =>
     {
 #if RELEASE
-        h.ClientCertificateMode = ClientCertificateMode.RequireCertificate;
+        h.ClientCertificateMode = Microsoft.AspNetCore.Server.Kestrel.Https.ClientCertificateMode.RequireCertificate;
         h.UseLettuceEncrypt(k.ApplicationServices);
 #endif
     });
