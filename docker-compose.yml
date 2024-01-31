@@ -6,7 +6,7 @@ services:
     container_name: container.minecraftspelunking.presentation.webserver
     build:
       context: .
-      dockerfile: "./../../../src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/Dockerfile"
+      dockerfile: "./src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/Dockerfile"
     ports: 
         - "8080:8080"
         - "8081:8081"

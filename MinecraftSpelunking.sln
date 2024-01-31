@@ -17,11 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - domain", "2 - domain", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - common", "1 - common", "{44F2A57E-62E4-42B4-AB6C-67AF3A683404}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Presentation.WebServer", "src\4 - presentation\MinecraftSpelunking.Presentation.WebServer\MinecraftSpelunking.Presentation.WebServer.csproj", "{D63EF6B0-B011-44EE-9A5A-8E7308F0B5F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Presentation.WebServer", "src\4 - presentation\MinecraftSpelunking.Presentation.WebServer\MinecraftSpelunking.Presentation.WebServer.csproj", "{D63EF6B0-B011-44EE-9A5A-8E7308F0B5F3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - docker-compose", "5 - docker-compose", "{13BC9E7C-BEEB-4094-B44E-68E6301E36DF}"
-EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "MinecraftSpelunker.DockerCompose.WebServer", "src\5 - docker-compose\MinecraftSpelunker.DockerCompose.WebServer\MinecraftSpelunker.DockerCompose.WebServer.dcproj", "{B1B2799B-0FD0-4238-8807-46952F7BC610}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B1B2799B-0FD0-4238-8807-46952F7BC610}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,8 +50,6 @@ Global
 		{042CA6B2-2245-4EAD-93D1-DA371AEECF87} = {AD8F0C03-4CE1-4C35-A396-34FE336848EF}
 		{44F2A57E-62E4-42B4-AB6C-67AF3A683404} = {AD8F0C03-4CE1-4C35-A396-34FE336848EF}
 		{D63EF6B0-B011-44EE-9A5A-8E7308F0B5F3} = {2AA5A275-EAED-4F7C-BA8D-2DE23CC6E326}
-		{13BC9E7C-BEEB-4094-B44E-68E6301E36DF} = {AD8F0C03-4CE1-4C35-A396-34FE336848EF}
-		{B1B2799B-0FD0-4238-8807-46952F7BC610} = {13BC9E7C-BEEB-4094-B44E-68E6301E36DF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CEBCF35A-887C-46E6-8896-9EE090069DE8}
