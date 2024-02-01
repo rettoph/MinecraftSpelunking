@@ -21,6 +21,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Present
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B1B2799B-0FD0-4238-8807-46952F7BC610}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Domain.Database.Common", "src\2 - domain\MinecraftSpelunking.Domain.Database.Common\MinecraftSpelunking.Domain.Database.Common.csproj", "{DBECBA35-DA82-44C3-B3B7-DF3BDFC1C876}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Domain.Database", "src\2 - domain\MinecraftSpelunking.Domain.Database\MinecraftSpelunking.Domain.Database.csproj", "{58029405-255B-442D-87D4-8FE798A676A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Domain.Identity.Common", "src\2 - domain\MinecraftSpelunking.Domain.Identity.Common\MinecraftSpelunking.Domain.Identity.Common.csproj", "{4219BF5B-7A7C-4C81-935A-23E36D4DF264}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Domain.Identity", "src\2 - domain\MinecraftSpelunking.Domain.Identity\MinecraftSpelunking.Domain.Identity.csproj", "{D9907C59-4FE0-4B7C-BD59-BE8D5AFF6474}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +47,22 @@ Global
 		{B1B2799B-0FD0-4238-8807-46952F7BC610}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1B2799B-0FD0-4238-8807-46952F7BC610}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1B2799B-0FD0-4238-8807-46952F7BC610}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBECBA35-DA82-44C3-B3B7-DF3BDFC1C876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBECBA35-DA82-44C3-B3B7-DF3BDFC1C876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBECBA35-DA82-44C3-B3B7-DF3BDFC1C876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBECBA35-DA82-44C3-B3B7-DF3BDFC1C876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58029405-255B-442D-87D4-8FE798A676A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58029405-255B-442D-87D4-8FE798A676A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58029405-255B-442D-87D4-8FE798A676A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58029405-255B-442D-87D4-8FE798A676A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4219BF5B-7A7C-4C81-935A-23E36D4DF264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4219BF5B-7A7C-4C81-935A-23E36D4DF264}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4219BF5B-7A7C-4C81-935A-23E36D4DF264}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4219BF5B-7A7C-4C81-935A-23E36D4DF264}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9907C59-4FE0-4B7C-BD59-BE8D5AFF6474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9907C59-4FE0-4B7C-BD59-BE8D5AFF6474}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9907C59-4FE0-4B7C-BD59-BE8D5AFF6474}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9907C59-4FE0-4B7C-BD59-BE8D5AFF6474}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +74,10 @@ Global
 		{042CA6B2-2245-4EAD-93D1-DA371AEECF87} = {AD8F0C03-4CE1-4C35-A396-34FE336848EF}
 		{44F2A57E-62E4-42B4-AB6C-67AF3A683404} = {AD8F0C03-4CE1-4C35-A396-34FE336848EF}
 		{D63EF6B0-B011-44EE-9A5A-8E7308F0B5F3} = {2AA5A275-EAED-4F7C-BA8D-2DE23CC6E326}
+		{DBECBA35-DA82-44C3-B3B7-DF3BDFC1C876} = {042CA6B2-2245-4EAD-93D1-DA371AEECF87}
+		{58029405-255B-442D-87D4-8FE798A676A4} = {042CA6B2-2245-4EAD-93D1-DA371AEECF87}
+		{4219BF5B-7A7C-4C81-935A-23E36D4DF264} = {042CA6B2-2245-4EAD-93D1-DA371AEECF87}
+		{D9907C59-4FE0-4B7C-BD59-BE8D5AFF6474} = {042CA6B2-2245-4EAD-93D1-DA371AEECF87}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CEBCF35A-887C-46E6-8896-9EE090069DE8}

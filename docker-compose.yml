@@ -11,11 +11,11 @@ services:
       dockerfile: "./src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/Dockerfile"
     ports: 
       - "${HOST_IP}:${HOST_PORT}:${CONTAINER_PORT}"
-#  minecraftspelunking.presentation.sqlserver:
-#    image: "mcr.microsoft.com/mssql/server:2022-latest"
-#    container_name: container.minecraftspelunking.presentation.sqlserver
-#    ports: # not actually needed, because the two services are on the same network.
-#      - "1433:1433" 
-#    environment:
-#      - ACCEPT_EULA=y
-#      - SA_PASSWORD=A&VeryComplex123Password
+  minecraftspelunking.presentation.sqlserver:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: container.minecraftspelunking.presentation.sqlserver
+    ports: # not actually needed, because the two services are on the same network.
+      - "1433:1433" 
+    environment:
+      - ACCEPT_EULA=y
+      - SA_PASSWORD=${SA_PASSWORD}
