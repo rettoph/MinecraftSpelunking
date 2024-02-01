@@ -8,13 +8,13 @@ services:
       context: .
       dockerfile: "./src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/Dockerfile"
     ports: 
-        - "8080:8080"
-        - "8081:8081"
-  minecraftspelunking.presentation.sqlserver:
-    image: "mcr.microsoft.com/mssql/server:2022-latest"
-    container_name: container.minecraftspelunking.presentation.sqlserver
-    ports: # not actually needed, because the two services are on the same network.
-      - "1433:1433" 
-    environment:
-      - ACCEPT_EULA=y
-      - SA_PASSWORD=A&VeryComplex123Password
+      - "${HTTP_PORTS}:${ASPNETCORE_HTTP_PORTS}"
+      - "${HTTPS_PORTS}:${ASPNETCORE_HTTPS_PORTS}"
+#  minecraftspelunking.presentation.sqlserver:
+#    image: "mcr.microsoft.com/mssql/server:2022-latest"
+#    container_name: container.minecraftspelunking.presentation.sqlserver
+#    ports: # not actually needed, because the two services are on the same network.
+#      - "1433:1433" 
+#    environment:
+#      - ACCEPT_EULA=y
+#      - SA_PASSWORD=A&VeryComplex123Password
