@@ -10,8 +10,7 @@ services:
       context: .
       dockerfile: "./src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/Dockerfile"
     ports: 
-      - "${HTTP_PORTS}:${ASPNETCORE_HTTP_PORTS}"
-      - "${HTTPS_PORTS}:${ASPNETCORE_HTTPS_PORTS}"
+      - "${HOST_IP}:${HOST_PORT}:${CONTAINER_PORT}"
 #  minecraftspelunking.presentation.sqlserver:
 #    image: "mcr.microsoft.com/mssql/server:2022-latest"
 #    container_name: container.minecraftspelunking.presentation.sqlserver
