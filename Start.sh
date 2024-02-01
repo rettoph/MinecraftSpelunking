@@ -1,1 +1,1 @@
-sudo docker compose --env-file .env.dev up
+sudo docker compose up --build

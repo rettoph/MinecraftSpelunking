@@ -1,6 +1,5 @@
 var builder = WebApplication.CreateBuilder(args);
 
-Console.WriteLine("LettuceEncrypt:Enabled => " + builder.Configuration["LettuceEncrypt:Enabled"]);
 if (builder.Configuration["LettuceEncrypt:Enabled"] == "true")
 {
     builder.Services.AddLettuceEncrypt();
