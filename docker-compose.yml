@@ -4,6 +4,8 @@ services:
   minecraftspelunking.presentation.webserver:
     image: image.minecraftspelunking.presentation.webserver
     container_name: container.minecraftspelunking.presentation.webserver
+    env_file:
+        - .env
     build:
       context: .
       dockerfile: "./src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/Dockerfile"

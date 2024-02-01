@@ -363,4 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /MinecraftSpelunking.Presentation.WebServer/wwwroot/icons/*.png
 /**/appsettings.json
-/.env.prod
+/.env

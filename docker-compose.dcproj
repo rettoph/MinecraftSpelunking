@@ -10,8 +10,8 @@
     <DockerServiceName>minecraftspelunking.presentation.webserver</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
-    <None Include=".env.dev" />
-    <None Include=".env.prod" />
+    <None Include=".env" />
+    <None Include=".env.example" />
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>
