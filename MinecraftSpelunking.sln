@@ -23,9 +23,9 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Domain.Database.Common", "src\2 - domain\MinecraftSpelunking.Domain.Database.Common\MinecraftSpelunking.Domain.Database.Common.csproj", "{DBECBA35-DA82-44C3-B3B7-DF3BDFC1C876}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Domain.Database", "src\2 - domain\MinecraftSpelunking.Domain.Database\MinecraftSpelunking.Domain.Database.csproj", "{58029405-255B-442D-87D4-8FE798A676A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Domain.Database", "src\2 - domain\MinecraftSpelunking.Domain.Database\MinecraftSpelunking.Domain.Database.csproj", "{58029405-255B-442D-87D4-8FE798A676A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Domain.Identity.Common", "src\2 - domain\MinecraftSpelunking.Domain.Identity.Common\MinecraftSpelunking.Domain.Identity.Common.csproj", "{4219BF5B-7A7C-4C81-935A-23E36D4DF264}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Domain.Identity.Common", "src\2 - domain\MinecraftSpelunking.Domain.Identity.Common\MinecraftSpelunking.Domain.Identity.Common.csproj", "{4219BF5B-7A7C-4C81-935A-23E36D4DF264}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Domain.Identity", "src\2 - domain\MinecraftSpelunking.Domain.Identity\MinecraftSpelunking.Domain.Identity.csproj", "{D9907C59-4FE0-4B7C-BD59-BE8D5AFF6474}"
 EndProject
