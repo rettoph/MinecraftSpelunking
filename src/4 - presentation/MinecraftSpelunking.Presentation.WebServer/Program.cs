@@ -7,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 
-builder.Services.TryRegisterLettuceEncrypt(builder.Configuration)
+builder.Services
+    .TryRegisterLettuceEncrypt(builder.Configuration)
     .RegisterDatabaseServices(builder.Configuration)
     .RegisterIdentityServices();
 

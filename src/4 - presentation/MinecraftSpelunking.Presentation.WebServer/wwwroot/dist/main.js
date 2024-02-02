@@ -15,7 +15,7 @@
   \************************/
 /***/ (() => {
 
-eval("﻿alert(\"hello world\");\n\n//# sourceURL=webpack://minecraft-spelunking.webserver/./Scripts/app.js?");
+eval("﻿console.log(\"updatadasde!\");\n\n//# sourceURL=webpack://minecraft-spelunking.webserver/./Scripts/app.js?");
 
 /***/ })
 
@@ -30,4 +30,3 @@ eval("﻿alert(\"hello world\");\n\n//# sourceURL=webpack://minecraft-spelunking
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=main.js.map

@@ -34,11 +34,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new VueLoader.VueLoaderPlugin(),
-        new Webpack.SourceMapDevToolPlugin({
-            filename: "[file].map",
-            fallbackModuleFilenameTemplate: '[absolute-resource-path]',
-            moduleFilenameTemplate: '[absolute-resource-path]'
-        })
+        new VueLoader.VueLoaderPlugin()
     ]
 };
