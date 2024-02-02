@@ -1,15 +1,25 @@
+function EitherOr(value, fallback) {
+    if (typeof value === 'undefined' || value == null) {
+        return fallback;
+    }
+
+    return value;
+}
+
 const path = require('path');
 const VueLoader = require('vue-loader');
-const bundleOutputDir = './wwwroot/dist';
+const Webpack = require('webpack');
 
+const output = EitherOr(process.env.npm_config_output, path.join(__dirname, './wwwroot/dist'));
+const mode = EitherOr(process.env.npm_config_mode, 'development');
 
 module.exports = {
-    mode: 'development',
+    mode: mode,
     entry: {
         main: './Scripts/app.js'
     },
     output: {
-        path: path.join(__dirname, bundleOutputDir),
+        path: output,
         filename: '[name].js',
         publicPath: 'dist/'
     },
@@ -24,6 +34,11 @@ module.exports = {
         ]
     },
     plugins: [
-        new VueLoader.VueLoaderPlugin()
+        new VueLoader.VueLoaderPlugin(),
+        new Webpack.SourceMapDevToolPlugin({
+            filename: "[file].map",
+            fallbackModuleFilenameTemplate: '[absolute-resource-path]',
+            moduleFilenameTemplate: '[absolute-resource-path]'
+        })
     ]
 };

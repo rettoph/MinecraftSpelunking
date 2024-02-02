@@ -30,3 +30,4 @@ eval("﻿alert(\"hello world\");\n\n//# sourceURL=webpack://minecraft-spelunking
 /******/ 	
 /******/ })()
 ;
+//# sourceMappingURL=main.js.map
