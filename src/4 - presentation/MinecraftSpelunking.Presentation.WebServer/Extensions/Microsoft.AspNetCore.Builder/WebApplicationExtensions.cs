@@ -31,11 +31,13 @@ namespace MinecraftSpelunking.Presentation.WebServer.Extensions.Microsoft.AspNet
 						var logger = services.GetRequiredService<ILogger<WebApplication>>();
 						logger.LogError(ex, "There was an error applying migrations. Attempt {CurrentAttempt}/{MaxAttempts}", currentAttempt++, maxAttempts);
 
-						if (currentAttempt == maxAttempts)
+						if (currentAttempt >= maxAttempts)
 						{
 							logger.LogError("Too many migration attempts failed. Goodbye.");
 							return;
 						}
+
+						await Task.Delay(1000);
 					}
 				}
 			}
