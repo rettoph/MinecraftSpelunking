@@ -22,12 +22,6 @@
     <ProjectReference Include="..\..\2 - domain\MinecraftSpelunking.Domain.Identity\MinecraftSpelunking.Domain.Identity.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="wwwroot\**\*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
   <!-- Ensure Node environment on Build -->
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build;PublishBuildAssets" Condition=" !Exists('node_modules') ">
     <!-- Ensure Node.js is installed -->

@@ -365,3 +365,4 @@ FodyWeavers.xsd
 /**/appsettings.json
 /.env
 /**/dist/*
+/docker-compose.override.yml
