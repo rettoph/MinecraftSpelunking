@@ -6,26 +6,32 @@ WORKDIR /app
 FROM node as node-base
 
 FROM node-base AS node-install
-WORKDIR /web-app
+WORKDIR /src
 COPY ["src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/package.json", "."]
 COPY ["src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/package-lock.json", "."]
 RUN npm install
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-dotnet
+FROM node-install AS node-build
+WORKDIR /src
+COPY ["src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/Scripts", "./Scripts"]
+COPY ["src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/rollup.*", "./"]
+COPY ["src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/tsconfig.*", "./"]
+RUN npm run dev
+RUN mkdir /dist
+RUN mv ./wwwroot/dist/* /dist
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS dotnet-build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src", "."]
 RUN dotnet restore "./4 - presentation/MinecraftSpelunking.Presentation.WebServer/./MinecraftSpelunking.Presentation.WebServer.csproj"
 WORKDIR "/src/4 - presentation/MinecraftSpelunking.Presentation.WebServer"
-
-# Copy node, npm, & node_modules
-COPY --from=node-install /usr/local /usr/local
-COPY --from=node-install /web-app .
+COPY --from=node-build /dist ./wwwroot/dist
 
 # Build application
 RUN dotnet build "./MinecraftSpelunking.Presentation.WebServer.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-FROM build-dotnet AS publish-dotnet
+FROM dotnet-build AS dotnet-publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./MinecraftSpelunking.Presentation.WebServer.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
@@ -33,5 +39,5 @@ RUN dotnet publish "./MinecraftSpelunking.Presentation.WebServer.csproj" -c $BUI
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish-dotnet /app/publish .
+COPY --from=dotnet-publish /app/publish .
 ENTRYPOINT ["dotnet", "MinecraftSpelunking.Presentation.WebServer.dll"]
