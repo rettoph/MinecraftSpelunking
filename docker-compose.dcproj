@@ -8,6 +8,8 @@
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>minecraftspelunking.presentation.webserver</DockerServiceName>
+    <DockerDevelopmentMode>Regular</DockerDevelopmentMode>
+    <DockerComposeProjectName>minecraftspelunking</DockerComposeProjectName>
   </PropertyGroup>
   <ItemGroup>
     <None Include=".env" />

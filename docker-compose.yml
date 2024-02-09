@@ -21,3 +21,4 @@ services:
       dockerfile: "./src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/Dockerfile"
     ports: 
       - "${HOST_IP}:${HOST_PORT}:${CONTAINER_PORT}"
+        
