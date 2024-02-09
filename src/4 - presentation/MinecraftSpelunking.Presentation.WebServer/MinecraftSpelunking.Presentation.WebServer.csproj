@@ -33,15 +33,15 @@
     <!-- Install Node packages -->
     <Exec Command="npm install" />
   </Target>
-
+  
   <!-- Build the final assets -->
-  <Target Name="PublishBuildAssets" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Release' ">
+  <Target Name="PublishBuildAssetsRelease" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Release' ">
     <!-- Build the final assets -->
     <Exec Command="npm run build" />
   </Target>
 
   <!-- Build the final assets -->
-  <Target Name="PublishBuildAssets" BeforeTargets="Build" Condition=" '$(Configuration)' != 'Release' ">
+  <Target Name="PublishBuildAssetsDevelop" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' ">
     <!-- Build the final assets -->
     <Exec Command="npm run dev" />
   </Target>
