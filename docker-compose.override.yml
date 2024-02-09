@@ -1,8 +1,14 @@
 version: '3.4'
 
 services:
+  minecraftspelunking.presentation.sqlserver:
+    volumes:
+      - "./volumes/var/opt/mssql/data/:/var/opt/mssql/data/"
+      - "./volumes/var/opt/mssql/log/:/var/opt/mssql/log/"
+      - "./volumes/var/opt/mssql/secrets/:/var/opt/mssql/secrets/"
   minecraftspelunking.presentation.webserver:
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
-      #- ./src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/wwwroot:/app/wwwroot
+      - ./volumes/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ./volumes/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ./volumes/root/.aspnet:/root/.aspnet
+      - ./src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/wwwroot:/app/wwwroot

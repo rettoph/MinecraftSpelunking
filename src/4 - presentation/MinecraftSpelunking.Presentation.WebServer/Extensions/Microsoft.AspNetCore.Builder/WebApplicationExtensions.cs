@@ -14,7 +14,7 @@ namespace MinecraftSpelunking.Presentation.WebServer.Extensions.Microsoft.AspNet
 				var context = services.GetRequiredService<DataContext>();
 
 				var currentAttempt = 0;
-				var maxAttempts = 3;
+				var maxAttempts = 10;
 				while (currentAttempt < maxAttempts)
 				{
 					try
