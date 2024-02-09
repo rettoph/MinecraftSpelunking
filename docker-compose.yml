@@ -11,6 +11,7 @@ services:
     environment:
       - ACCEPT_EULA=y
       - SA_PASSWORD=${SA_PASSWORD}
+    user: root
   minecraftspelunking.presentation.webserver:
     image: image.minecraftspelunking.presentation.webserver
     container_name: container.minecraftspelunking.presentation.webserver

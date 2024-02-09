@@ -1,2 +1,2 @@
 sudo docker system prune -a -f
-sudo docker compose up --build
+sudo docker compose up --build -d
