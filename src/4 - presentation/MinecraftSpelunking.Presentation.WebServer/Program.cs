@@ -13,7 +13,6 @@ builder.Services
     .RegisterDatabaseServices(builder.Configuration)
     .RegisterIdentityServices();
 
-// Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 

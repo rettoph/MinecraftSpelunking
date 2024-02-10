@@ -35,8 +35,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Start.sh = Start.sh
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp1", "src\4 - presentation\BlazorApp1\BlazorApp1.csproj", "{0E756065-66F8-42CA-84AD-A2162B30C115}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,10 +69,6 @@ Global
 		{D9907C59-4FE0-4B7C-BD59-BE8D5AFF6474}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9907C59-4FE0-4B7C-BD59-BE8D5AFF6474}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9907C59-4FE0-4B7C-BD59-BE8D5AFF6474}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E756065-66F8-42CA-84AD-A2162B30C115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E756065-66F8-42CA-84AD-A2162B30C115}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E756065-66F8-42CA-84AD-A2162B30C115}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E756065-66F8-42CA-84AD-A2162B30C115}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,7 +84,6 @@ Global
 		{58029405-255B-442D-87D4-8FE798A676A4} = {042CA6B2-2245-4EAD-93D1-DA371AEECF87}
 		{4219BF5B-7A7C-4C81-935A-23E36D4DF264} = {042CA6B2-2245-4EAD-93D1-DA371AEECF87}
 		{D9907C59-4FE0-4B7C-BD59-BE8D5AFF6474} = {042CA6B2-2245-4EAD-93D1-DA371AEECF87}
-		{0E756065-66F8-42CA-84AD-A2162B30C115} = {2AA5A275-EAED-4F7C-BA8D-2DE23CC6E326}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CEBCF35A-887C-46E6-8896-9EE090069DE8}

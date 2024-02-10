@@ -1,4 +1,5 @@
 ﻿import typescript from '@rollup/plugin-typescript';
+import scss from 'rollup-plugin-scss'
 
 /** @type {import('rollup').RollupOptions} */
 const options = {
@@ -7,7 +8,8 @@ const options = {
         file: "./wwwroot/dist/bundle.js",
     },
     plugins: [
-        typescript()
+        typescript(),
+        new scss("./wwwroot/dist/bundle.css")
     ]
 }
 
