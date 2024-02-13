@@ -8,5 +8,7 @@ namespace MinecraftSpelunking.Application.Identity.Common.Services
         Task<RegisterUserResultDto> RegisterUserAsync(string username, string email, string password, params UserRoleTypeEnum[] roles);
 
         Task<SignInResultDto> TrySignInWithEmailAndPasswordAsync(string email, string password);
+
+        Task SignOutAsync();
     }
 }

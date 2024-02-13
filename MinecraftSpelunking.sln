@@ -45,9 +45,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Applica
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Common.Database", "src\1 - common\MinecraftSpelunking.Common.Database\MinecraftSpelunking.Common.Database.csproj", "{54F27637-A35E-4C32-B63E-B263D819C582}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Application.Identity", "src\3 - application\MinecraftSpelunking.Application.Identity\MinecraftSpelunking.Application.Identity.csproj", "{ED2E19A4-822D-491C-A644-A581077F8CCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Application.Identity", "src\3 - application\MinecraftSpelunking.Application.Identity\MinecraftSpelunking.Application.Identity.csproj", "{ED2E19A4-822D-491C-A644-A581077F8CCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Common.Identity", "src\1 - common\MinecraftSpelunking.Common.Identity\MinecraftSpelunking.Common.Identity.csproj", "{AB69D1C0-FCCE-4418-BFE6-1AE9357B9473}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Common.Identity", "src\1 - common\MinecraftSpelunking.Common.Identity\MinecraftSpelunking.Common.Identity.csproj", "{AB69D1C0-FCCE-4418-BFE6-1AE9357B9473}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

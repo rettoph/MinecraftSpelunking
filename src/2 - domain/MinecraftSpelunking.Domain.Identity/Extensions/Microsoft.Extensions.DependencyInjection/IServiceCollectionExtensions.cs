@@ -12,7 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddIdentity<User, UserRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
-                options.SignIn.RequireConfirmedAccount = true;
+                options.SignIn.RequireConfirmedAccount = false;
             }).AddEntityFrameworkStores<DataContext>();
 
             return services.AddScoped<IUserService, UserService>();

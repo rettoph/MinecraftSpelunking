@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using MinecraftSpelunking.Application.AspNetCore.Common.Dtos
+@using MinecraftSpelunking.Application.AspNetCore.Common.Services
+@using MinecraftSpelunking.Application.Identity.Common.Dtos
+@using MinecraftSpelunking.Application.Identity.Common.Enums
+@using MinecraftSpelunking.Application.Identity.Common.Services
+@using MinecraftSpelunking.Domain.Identity.Common.Enums
+@using MinecraftSpelunking.Presentation.WebServer.Attributes
+
+@attribute [Route(Constants.Routes.Account.Logout)]
+@attribute [Authorize]
+
+@inject IRedirectApplicationService Redirect;
+@inject IUserApplicationService Users;
+
+<PageTitle>Login</PageTitle>
+
+<h1>Logout</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <p>Logging you out. Please wait...</p>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private string ReturnUrl { get; set; } = Constants.Routes.Home;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        await this.Users.SignOutAsync();
+        this.Redirect.RedirectTo(uri: this.ReturnUrl, statusMessage: StatusMessageDto.Success("You have been logged out."));
+    }
+}

@@ -1,12 +1,15 @@
 using AutoMapper;
 using AutoMapper.EquivalencyExpression;
+using Microsoft.AspNetCore.Authorization;
 using MinecraftSpelunking.Application.AspNetCore.Extensions.Microsoft.DependencyInjection;
 using MinecraftSpelunking.Domain.Database;
 using MinecraftSpelunking.Domain.Database.Extensions.Microsoft.DependencyInjection;
+using MinecraftSpelunking.Presentation.WebServer;
 using MinecraftSpelunking.Presentation.WebServer.Components;
 using MinecraftSpelunking.Presentation.WebServer.Extensions.Microsoft.AspNetCore.Builder;
 using MinecraftSpelunking.Presentation.WebServer.Extensions.Microsoft.DependencyInjection;
 using MinecraftSpelunking.Presentation.WebServer.Middleware;
+using MinecraftSpelunking.Presentation.WebServer.Middleware.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +24,11 @@ builder.Services
     {
         mapper.AddCollectionMappers();
         mapper.UseEntityFrameworkCoreModel<DataContext>(provider);
-    }, typeof(DataContext).Assembly);
+    }, typeof(DataContext).Assembly)
+    .ConfigureApplicationCookie(options =>
+    {
+        options.LoginPath = Constants.Routes.Account.Login;
+    });
 
 builder.Services
     .AddOptions()
@@ -31,7 +38,8 @@ builder.Services
     .AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddTransient<EnsureAdminUserExistsMiddleware>();
+builder.Services.AddTransient<EnsureAdminUserExistsMiddleware>()
+    .AddSingleton<IAuthorizationMiddlewareResultHandler, StatusMessageAuthorizationMiddlewareResultHandler>();
 
 WebApplication app = builder.Build();
 
@@ -48,8 +56,8 @@ app.UseStaticFiles();
 app.UseAntiforgery();
 
 app.UseMiddleware<EnsureAdminUserExistsMiddleware>();
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

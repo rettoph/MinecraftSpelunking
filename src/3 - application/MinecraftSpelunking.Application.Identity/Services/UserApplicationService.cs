@@ -35,7 +35,7 @@ namespace MinecraftSpelunking.Application.Identity.Services
                 SecurityStamp = Guid.NewGuid().ToString()
             };
 
-            IdentityResult createUserResult = await _userManager.CreateAsync(user);
+            IdentityResult createUserResult = await _userManager.CreateAsync(user, password);
             if (result.IdentityResult.Merge(createUserResult) && roles.Length > 0)
             {
                 IdentityResult addToRolesResult = await _userManager.AddToRolesAsync(user, roles);
@@ -68,6 +68,11 @@ namespace MinecraftSpelunking.Application.Identity.Services
                 Type = signInResult.ToSignInResultTypeEnum(),
                 User = _mapper.Map<UserDto?>(user)
             };
+        }
+
+        public async Task SignOutAsync()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }

@@ -2,33 +2,28 @@
 @using MinecraftSpelunking.Application.AspNetCore.Common.Dtos
 @using MinecraftSpelunking.Application.AspNetCore.Common.Services
 @using MinecraftSpelunking.Application.Identity.Common.Dtos
+@using MinecraftSpelunking.Application.Identity.Common.Enums
 @using MinecraftSpelunking.Application.Identity.Common.Services
 @using MinecraftSpelunking.Domain.Identity.Common.Enums
 @using MinecraftSpelunking.Presentation.WebServer.Attributes
 
-@attribute [EnsureAdminUserExists(false)]
-@attribute [Route(Constants.Routes.Account.RegisterAdmin)]
+@attribute [Route(Constants.Routes.Account.Login)]
 
 @inject IRedirectApplicationService Redirect;
 @inject IUserApplicationService Users;
 @inject IStatusMessageApplicationService StatusMessages;
 
-<PageTitle>Register Admin Account</PageTitle>
+<PageTitle>Login</PageTitle>
 
-<h1>Register Admin Account</h1>
+<h1>Login</h1>
 
 <div class="row">
     <div class="col-md-4">
         <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="Submit" FormName="register">
             <DataAnnotationsValidator />
-            <h2>Create primary admin account.</h2>
+            <h2>Login to your account.</h2>
             <hr />
             <ValidationSummary class="text-danger" role="alert" />
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="Username" />
-                <label for="username">Username</label>
-                <ValidationMessage For="() => Input.UserName" class="text-danger" />
-            </div>
             <div class="form-floating mb-3">
                 <InputText @bind-Value="Input.Email" class="form-control" autocomplete="email" aria-required="true" placeholder="name@example.com" />
                 <label for="email">Email</label>
@@ -39,37 +34,34 @@
                 <label for="password">Password</label>
                 <ValidationMessage For="() => Input.Password" class="text-danger" />
             </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="confirm-password">Confirm Password</label>
-                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
-            </div>
             <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </EditForm>
     </div>
 </div>
 
 @code {
-    private RegisterUserResultDto? Result;
+    private SignInResultDto? Result;
 
     [SupplyParameterFromQuery]
     private string ReturnUrl { get; set; } = Constants.Routes.Home;
 
     [SupplyParameterFromForm]
-    private RegisterAdminInputModel Input { get; set; } = new();
+    private LoginInputModel Input { get; set; } = new();
 
     public async Task Submit()
     {
-        this.Result = await this.Users.RegisterUserAsync(this.Input.UserName, this.Input.Email, this.Input.Password, UserRoleTypeEnum.User, UserRoleTypeEnum.Admin);
+        this.Result = await this.Users.TrySignInWithEmailAndPasswordAsync(this.Input.Email, this.Input.Password);
 
-        foreach (IdentityError error in this.Result.IdentityResult.Errors)
+        switch(this.Result.Type)
         {
-            this.StatusMessages.Add(StatusMessageDto.Error(error.Description));
-        }
-
-        if(this.Result.IdentityResult.Succeeded == true)
-        {
-            this.Redirect.RedirectTo(uri: this.ReturnUrl, statusMessage: StatusMessageDto.Success("Account created succesfully!"));
+            case SignInResultTypeEnum.Failure:
+                this.StatusMessages.Add(StatusMessageDto.Error("Unable to login, check your credentials and try again."));
+                break;
+            case SignInResultTypeEnum.Success:
+                this.Redirect.RedirectTo(uri: this.ReturnUrl, statusMessage: StatusMessageDto.Success($"Welcome, {this.Result.User!.UserName}"));
+                break;
+            default:
+                throw new NotImplementedException();
         }
     }
 }
