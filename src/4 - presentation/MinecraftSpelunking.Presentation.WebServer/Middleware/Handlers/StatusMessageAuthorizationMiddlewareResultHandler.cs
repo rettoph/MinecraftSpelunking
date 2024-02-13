@@ -15,13 +15,24 @@ namespace MinecraftSpelunking.Presentation.WebServer.Middleware.Handlers
                 return;
             }
 
-            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            if (authorizeResult.Forbidden == true)
+            {
+                this.RedirectTo(context, Constants.Routes.Home, "You can not access this content.", StatusCodes.Status403Forbidden);
+                return;
+            }
+
+            this.RedirectTo(context, Constants.Routes.Home, "You must be logged in to access the requested content.", StatusCodes.Status401Unauthorized);
+        }
+
+        private void RedirectTo(HttpContext context, string uri, string message, int statusCode)
+        {
+            context.Response.StatusCode = statusCode;
 
             IRedirectApplicationService redirects = context.RequestServices.GetRequiredService<IRedirectApplicationService>();
-            redirects.RedirectTo(Constants.Routes.Account.Login, new Dictionary<string, object?>()
+            redirects.RedirectTo(uri, new Dictionary<string, object?>()
             {
                 { Constants.QueryParameters.ReturnUrl, context.Request.Path }
-            }, StatusMessageDto.Error("You must be logged in to access the requested content."));
+            }, StatusMessageDto.Warning(message));
         }
     }
 }

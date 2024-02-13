@@ -9,7 +9,7 @@
 @using MinecraftSpelunking.Presentation.WebServer.Attributes
 
 @attribute [Route(Constants.Routes.Account.Logout)]
-@attribute [Authorize]
+@attribute [AuthorizeWithRoles(UserRoleTypeEnum.User)]
 
 @inject IRedirectApplicationService Redirect;
 @inject IUserApplicationService Users;
