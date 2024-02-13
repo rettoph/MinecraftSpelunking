@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MinecraftSpelunking.Domain.Identity.Common\MinecraftSpelunking.Domain.Identity.Common.csproj" />
+  </ItemGroup>
+
 </Project>

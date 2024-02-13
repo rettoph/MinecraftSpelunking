@@ -12,15 +12,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="AutoMapper.Collection.EntityFrameworkCore" Version="9.0.0" />
     <PackageReference Include="LettuceEncrypt" Version="1.3.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\1 - common\MinecraftSpelunking.Common.Extensions\MinecraftSpelunking.Common.Extensions.csproj" />
     <ProjectReference Include="..\..\2 - domain\MinecraftSpelunking.Domain.Database\MinecraftSpelunking.Domain.Database.csproj" />
-    <ProjectReference Include="..\..\2 - domain\MinecraftSpelunking.Domain.Identity\MinecraftSpelunking.Domain.Identity.csproj" />
+    <ProjectReference Include="..\..\3 - application\MinecraftSpelunking.Application.AspNetCore\MinecraftSpelunking.Application.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\3 - application\MinecraftSpelunking.Application.Identity\MinecraftSpelunking.Application.Identity.csproj" />
   </ItemGroup>
 
 </Project>

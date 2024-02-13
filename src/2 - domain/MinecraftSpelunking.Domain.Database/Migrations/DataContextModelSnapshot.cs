@@ -213,6 +213,9 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
@@ -221,6 +224,29 @@ namespace MinecraftSpelunking.Domain.Database.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "User",
+                            NormalizedName = "User",
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Admin",
+                            NormalizedName = "Admin",
+                            Type = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Dummy",
+                            NormalizedName = "Dummy",
+                            Type = 3
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
