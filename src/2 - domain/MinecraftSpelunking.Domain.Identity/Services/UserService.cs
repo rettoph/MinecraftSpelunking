@@ -1,27 +1,31 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MinecraftSpelunking.Domain.Database.Common;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using MinecraftSpelunking.Domain.Common.Services;
+using MinecraftSpelunking.Domain.Database;
 using MinecraftSpelunking.Domain.Identity.Common.Entities;
 using MinecraftSpelunking.Domain.Identity.Common.Services;
 
 namespace MinecraftSpelunking.Domain.Identity.Services
 {
-    internal sealed class UserService : IUserService
+    internal sealed class UserService : MappingService<User>, IUserService
     {
-        private readonly IDataContext _context;
-
-        public UserService(IDataContext context)
+        public UserService(DataContext context, IMapper mapper) : base(x => x.Users, context, mapper)
         {
-            _context = context;
         }
 
         public bool Any()
         {
-            return _context.Users.Any();
+            return this.entities.Any();
         }
 
-        public async Task<User?> GetUserByEmailAsync(string email)
+        public async Task<User?> GetByEmailAsync(string email)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            return await this.entities.FirstOrDefaultAsync(x => x.Email == email);
+        }
+
+        public async Task<User?> GetByIdAsync(int id)
+        {
+            return await this.entities.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

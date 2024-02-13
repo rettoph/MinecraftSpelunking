@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\2 - domain\MinecraftSpelunking.Domain.Minecraft.Common\MinecraftSpelunking.Domain.Minecraft.Common.csproj" />
+    <ProjectReference Include="..\MinecraftSpelunking.Application.Database.Common\MinecraftSpelunking.Application.Database.Common.csproj" />
+    <ProjectReference Include="..\MinecraftSpelunking.Application.Identity.Common\MinecraftSpelunking.Application.Identity.Common.csproj" />
+  </ItemGroup>
+
+</Project>

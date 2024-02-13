@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using MinecraftSpelunking.Domain.Database;
 using MinecraftSpelunking.Domain.Database.Common;
 
-namespace MinecraftSpelunking.Domain.Database.Extensions.Microsoft.DependencyInjection
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class IServiceCollectionExtensions
     {
-        public static IServiceCollection RegisterDatabaseServices(this IServiceCollection services, IConfigurationManager configuration)
+        public static IServiceCollection RegisterDomainDatabaseServices(this IServiceCollection services, IConfigurationManager configuration)
         {
             // Add database
             string connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");

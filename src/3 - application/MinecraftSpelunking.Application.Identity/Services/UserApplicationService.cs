@@ -1,10 +1,11 @@
-﻿using AutoMapper;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using MinecraftSpelunking.Application.Identity.Common.Dtos;
 using MinecraftSpelunking.Application.Identity.Common.Services;
 using MinecraftSpelunking.Domain.Identity.Common.Entities;
 using MinecraftSpelunking.Domain.Identity.Common.Enums;
 using MinecraftSpelunking.Domain.Identity.Common.Services;
+using System.Security.Claims;
 
 namespace MinecraftSpelunking.Application.Identity.Services
 {
@@ -13,14 +14,14 @@ namespace MinecraftSpelunking.Application.Identity.Services
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IUserService _users;
-        private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserApplicationService(SignInManager<User> signInManager, UserManager<User> userManager, IUserService users, IMapper mapper)
+        public UserApplicationService(SignInManager<User> signInManager, UserManager<User> userManager, IUserService users, IHttpContextAccessor httpContextAccessor)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _users = users;
-            _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<RegisterUserResultDto> RegisterUserAsync(string username, string email, string password, params UserRoleTypeEnum[] roles)
@@ -48,7 +49,7 @@ namespace MinecraftSpelunking.Application.Identity.Services
 
             if (result.IdentityResult.Succeeded)
             {
-                result.User = _mapper.Map<UserDto>(user);
+                result.User = _users.Map<UserDto>(user);
             }
 
             return result;
@@ -56,7 +57,7 @@ namespace MinecraftSpelunking.Application.Identity.Services
 
         public async Task<SignInResultDto> TrySignInWithEmailAndPasswordAsync(string email, string password)
         {
-            User? user = await _users.GetUserByEmailAsync(email);
+            User? user = await _users.GetByEmailAsync(email);
             if (user is null)
             {
                 return SignInResultDto.Failure;
@@ -66,13 +67,28 @@ namespace MinecraftSpelunking.Application.Identity.Services
             return new SignInResultDto()
             {
                 Type = signInResult.ToSignInResultTypeEnum(),
-                User = _mapper.Map<UserDto?>(user)
+                User = _users.Map<UserDto?>(user)
             };
         }
 
         public async Task SignOutAsync()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public async Task<UserDto?> GetCurrentUserAsync()
+        {
+            Claim? userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userIdClaim is null || int.TryParse(userIdClaim.Value, out int userId) == false)
+            {
+                return null;
+            }
+
+            User? user = await _users.GetByIdAsync(userId);
+            UserDto? userDto = _users.Map<UserDto?>(user);
+
+            return userDto;
         }
     }
 }

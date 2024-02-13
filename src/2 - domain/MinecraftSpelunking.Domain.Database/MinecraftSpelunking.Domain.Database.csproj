@@ -14,8 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\1 - common\MinecraftSpelunking.Common.Database\MinecraftSpelunking.Common.Database.csproj" />
     <ProjectReference Include="..\MinecraftSpelunking.Domain.Database.Common\MinecraftSpelunking.Domain.Database.Common.csproj" />
     <ProjectReference Include="..\MinecraftSpelunking.Domain.Identity.Common\MinecraftSpelunking.Domain.Identity.Common.csproj" />
+    <ProjectReference Include="..\MinecraftSpelunking.Domain.Minecraft.Common\MinecraftSpelunking.Domain.Minecraft.Common.csproj" />
   </ItemGroup>
   
 </Project>

@@ -1,6 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Authorization
+@using MinecraftSpelunking.Application.Identity.Common.Services
+@using MinecraftSpelunking.Application.Minecraft.Common.Services
 
 @attribute [Route(Constants.Routes.Home)]
+
+@inject IUserApplicationService Users;
+@inject IAddressBlockApplicationService AddressBlocks;
 
 <PageTitle>Home</PageTitle>
 
@@ -15,8 +20,12 @@
 
 @code
 {
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        await base.OnInitializedAsync();
+
+        var currentUser = await this.Users.GetCurrentUserAsync();
+        if (currentUser is null) return;
+        await this.AddressBlocks.GetAssignmentAsync(currentUser);
     }
 }

@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\1 - common\MinecraftSpelunking.Common.Services\MinecraftSpelunking.Common.Services.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -10,5 +10,7 @@ namespace MinecraftSpelunking.Application.Identity.Common.Services
         Task<SignInResultDto> TrySignInWithEmailAndPasswordAsync(string email, string password);
 
         Task SignOutAsync();
+
+        Task<UserDto?> GetCurrentUserAsync();
     }
 }

@@ -9,7 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection RegisterApplicationIdentityServices(this IServiceCollection services)
         {
             return services.RegisterDomainIdentityServices()
-                .AddAutoMapper(typeof(ApplicationAccountMapperProfile))
+                .AddAutoMapper(typeof(ApplicationIdentityMapperProfile))
                 .AddScoped<IUserApplicationService, UserApplicationService>();
         }
     }

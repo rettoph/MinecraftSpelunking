@@ -1,9 +1,5 @@
-using AutoMapper;
-using AutoMapper.EquivalencyExpression;
 using Microsoft.AspNetCore.Authorization;
 using MinecraftSpelunking.Application.AspNetCore.Extensions.Microsoft.DependencyInjection;
-using MinecraftSpelunking.Domain.Database;
-using MinecraftSpelunking.Domain.Database.Extensions.Microsoft.DependencyInjection;
 using MinecraftSpelunking.Presentation.WebServer;
 using MinecraftSpelunking.Presentation.WebServer.Components;
 using MinecraftSpelunking.Presentation.WebServer.Extensions.Microsoft.AspNetCore.Builder;
@@ -13,18 +9,12 @@ using MinecraftSpelunking.Presentation.WebServer.Middleware.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 builder.Services
     .TryRegisterLettuceEncrypt(builder.Configuration)
-    .RegisterDatabaseServices(builder.Configuration)
+    .RegisterApplicationDatabaseServices(builder.Configuration)
     .RegisterApplicationIdentityServices()
     .RegisterAspNetCoreServices()
-    .AddAutoMapper((provider, mapper) =>
-    {
-        mapper.AddCollectionMappers();
-        mapper.UseEntityFrameworkCoreModel<DataContext>(provider);
-    }, typeof(DataContext).Assembly)
+    .RegisterApplicationMinecraftServices()
     .ConfigureApplicationCookie(options =>
     {
         options.LoginPath = Constants.Routes.Account.Login;

@@ -22,9 +22,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\1 - common\MinecraftSpelunking.Common.Extensions\MinecraftSpelunking.Common.Extensions.csproj" />
-    <ProjectReference Include="..\..\2 - domain\MinecraftSpelunking.Domain.Database\MinecraftSpelunking.Domain.Database.csproj" />
     <ProjectReference Include="..\..\3 - application\MinecraftSpelunking.Application.AspNetCore\MinecraftSpelunking.Application.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\3 - application\MinecraftSpelunking.Application.Database\MinecraftSpelunking.Application.Database.csproj" />
     <ProjectReference Include="..\..\3 - application\MinecraftSpelunking.Application.Identity\MinecraftSpelunking.Application.Identity.csproj" />
+    <ProjectReference Include="..\..\3 - application\MinecraftSpelunking.Application.Minecraft\MinecraftSpelunking.Application.Minecraft.csproj" />
   </ItemGroup>
 
 </Project>

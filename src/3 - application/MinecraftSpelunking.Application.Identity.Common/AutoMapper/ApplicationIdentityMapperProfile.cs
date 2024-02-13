@@ -5,11 +5,15 @@ using MinecraftSpelunking.Domain.Identity.Common.Entities;
 
 namespace MinecraftSpelunking.Application.Identity.Common.AutoMapper
 {
-    public sealed class ApplicationAccountMapperProfile : Profile
+    public sealed class ApplicationIdentityMapperProfile : Profile
     {
-        public ApplicationAccountMapperProfile()
+        public ApplicationIdentityMapperProfile()
         {
             this.CreateMap<User, UserDto>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.UserName, o => o.MapFrom(s => s.UserName));
+
+            this.CreateMap<UserDto, User>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.UserName, o => o.MapFrom(s => s.UserName));
 
