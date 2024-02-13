@@ -14,6 +14,7 @@ RUN npm install
 FROM node-install AS node-build
 WORKDIR /src
 COPY ["src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/Scripts", "./Scripts"]
+COPY ["src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/Styles", "./Styles"]
 COPY ["src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/rollup.*", "./"]
 COPY ["src/4 - presentation/MinecraftSpelunking.Presentation.WebServer/tsconfig.*", "./"]
 RUN npm run dev
