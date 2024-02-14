@@ -55,7 +55,7 @@ namespace MinecraftSpelunking.Application.Identity.Services
             return result;
         }
 
-        public async Task<SignInResultDto> TrySignInWithEmailAndPasswordAsync(string email, string password)
+        public async Task<SignInResultDto> TrySignInWithEmailAndPasswordAsync(string email, string password, bool isPersistent)
         {
             User? user = await _users.GetByEmailAsync(email);
             if (user is null)
@@ -63,7 +63,7 @@ namespace MinecraftSpelunking.Application.Identity.Services
                 return SignInResultDto.Failure;
             }
 
-            SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, password, true, false);
+            SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, password, isPersistent, false);
             return new SignInResultDto()
             {
                 Type = signInResult.ToSignInResultTypeEnum(),

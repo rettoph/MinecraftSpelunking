@@ -37,7 +37,7 @@ namespace MinecraftSpelunking.Domain.Database
         {
             base.ConfigureConventions(configurationBuilder);
 
-            IpNetwork2Converter.ConfigureConventions(configurationBuilder);
+            IPNetwork2Converter.ConfigureConventions(configurationBuilder);
         }
 
         private void PrepareEntitiesForSave()

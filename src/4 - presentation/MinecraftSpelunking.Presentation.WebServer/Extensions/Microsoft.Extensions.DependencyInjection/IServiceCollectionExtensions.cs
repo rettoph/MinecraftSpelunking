@@ -1,4 +1,4 @@
-﻿namespace MinecraftSpelunking.Presentation.WebServer.Extensions.Microsoft.DependencyInjection
+﻿namespace Microsoft.Extensions.DependencyInjection
 {
     public static class IServiceCollectionExtensions
     {

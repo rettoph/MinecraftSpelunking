@@ -1,6 +1,8 @@
 ﻿@page "/counter"
 @rendermode InteractiveServer
 
+@attribute [AuthorizeWithRoles(Domain.Identity.Common.Enums.UserRoleTypeEnum.User)]
+
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>

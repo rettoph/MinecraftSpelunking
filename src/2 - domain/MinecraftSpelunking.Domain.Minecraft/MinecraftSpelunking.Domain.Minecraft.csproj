@@ -11,4 +11,8 @@
     <ProjectReference Include="..\MinecraftSpelunking.Domain.Minecraft.Common\MinecraftSpelunking.Domain.Minecraft.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  
 </Project>

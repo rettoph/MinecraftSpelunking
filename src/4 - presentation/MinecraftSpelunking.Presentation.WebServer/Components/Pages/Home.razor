@@ -23,9 +23,5 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-
-        var currentUser = await this.Users.GetCurrentUserAsync();
-        if (currentUser is null) return;
-        await this.AddressBlocks.GetAssignmentAsync(currentUser);
     }
 }

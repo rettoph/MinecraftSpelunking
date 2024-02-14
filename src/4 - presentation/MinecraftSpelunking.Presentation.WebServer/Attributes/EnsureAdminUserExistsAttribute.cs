@@ -3,7 +3,7 @@
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class EnsureAdminUserExistsAttribute : Attribute
     {
-        public static readonly EnsureAdminUserExistsAttribute Default = new EnsureAdminUserExistsAttribute(true);
+        public static readonly EnsureAdminUserExistsAttribute Default = new EnsureAdminUserExistsAttribute(false);
 
         public readonly bool Value;
 

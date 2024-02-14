@@ -8,6 +8,7 @@
 @using MinecraftSpelunking.Presentation.WebServer.Attributes
 
 @attribute [Route(Constants.Routes.Account.Login)]
+@attribute [EnsureAdminUserExists(true)]
 
 @inject IRedirectApplicationService Redirect;
 @inject IUserApplicationService Users;
@@ -34,7 +35,7 @@
                 <label for="password">Password</label>
                 <ValidationMessage For="() => Input.Password" class="text-danger" />
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Login</button>
         </EditForm>
     </div>
 </div>
@@ -50,7 +51,7 @@
 
     public async Task Submit()
     {
-        this.Result = await this.Users.TrySignInWithEmailAndPasswordAsync(this.Input.Email, this.Input.Password);
+        this.Result = await this.Users.TrySignInWithEmailAndPasswordAsync(this.Input.Email, this.Input.Password, true);
 
         switch(this.Result.Type)
         {

@@ -32,7 +32,7 @@ namespace MinecraftSpelunking.Domain.Minecraft.Services
                 // Check for any address blocks that have gone stale
                 DateTime staleTime = DateTime.Now.Subtract(StaleInterval);
                 AddressBlock? stale = await this.entities
-                    .Where(x => x.Status != AddressBlockStatusEnum.Scanned)
+                    .Where(x => x.Status == AddressBlockStatusEnum.Assigned)
                     .Where(x => staleTime >= x.ModifiedAt)
                     .FirstOrDefaultAsync();
 
@@ -96,6 +96,8 @@ namespace MinecraftSpelunking.Domain.Minecraft.Services
         public async Task<AddressBlockAssignment?> TryAssignAddressBlockAsync(AddressBlock block, User user)
         {
             block.Status = AddressBlockStatusEnum.Assigned;
+            block.ModifiedAt = DateTime.Now;
+
             AddressBlockAssignment assignment = new AddressBlockAssignment()
             {
                 User = user,
@@ -103,6 +105,7 @@ namespace MinecraftSpelunking.Domain.Minecraft.Services
                 AssignedAt = DateTime.Now
             };
 
+            this.context.Add(assignment);
             await this.context.SaveChangesAsync();
 
             return assignment;
