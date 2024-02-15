@@ -35,7 +35,7 @@ namespace MinecraftSpelunking.Domain.Minecraft.Services
                     .Where(x => staleTime >= x.ModifiedAt)
                     .FirstOrDefaultAsync();
 
-                if (stale is not null)
+                if (stale is not null && staleTime >= stale.ModifiedAt)
                 {
                     return stale;
                 }

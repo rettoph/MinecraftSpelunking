@@ -33,6 +33,8 @@ namespace MinecraftSpelunking.Domain.Minecraft.Services
                 }
 
                 AddressBlockAssignment? assignment = this.TryAssignAddressBlockAsync(block, user);
+                await this.context.SaveChangesAsync();
+
                 if (assignment is null)
                 {
                     break;

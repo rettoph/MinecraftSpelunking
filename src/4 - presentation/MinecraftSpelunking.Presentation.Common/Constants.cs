@@ -1,4 +1,4 @@
-﻿namespace MinecraftSpelunking.Presentation.WebServer
+﻿namespace MinecraftSpelunking.Presentation.Common
 {
     public static class Constants
     {
@@ -27,6 +27,7 @@
                         public const string Index = $"{Routes.Api.v1.Index}/address-block-assignment";
 
                         public const string Get = $"{Routes.Api.v1.AddressBlockAssignment.Index}/get";
+                        public const string Complete = $"{Routes.Api.v1.AddressBlockAssignment.Index}/complete";
                     }
                 }
             }

@@ -16,8 +16,7 @@ namespace MinecraftSpelunking.Presentation.WebServer.AutoMapper
 
             this.CreateMap<AddressBlockAssignmentDto, AddressBlockAssignmentModel>();
 
-            this.CreateMap<AddressBlockDto, AddressBlockModel>()
-                .ForMember(s => s.Network, o => o.MapFrom(d => d.Network.ToString()));
+            this.CreateMap<AddressBlockDto, AddressBlockModel>();
 
             this.CreateMap<IPNetwork2, IPNetwork2Model>()
                 .ForMember(s => s.Network, o => o.MapFrom(d => d.Network.ToString()))

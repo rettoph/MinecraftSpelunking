@@ -8,7 +8,12 @@ namespace MinecraftSpelunking.Domain.Minecraft.Common.Json
     {
         public override IPNetwork2? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            throw new NotImplementedException();
+            if (IPNetwork2.TryParse(reader.GetString(), out IPNetwork2 network))
+            {
+                return network;
+            }
+
+            return null;
         }
 
         public override void Write(Utf8JsonWriter writer, IPNetwork2 value, JsonSerializerOptions options)

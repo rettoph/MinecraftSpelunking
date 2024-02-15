@@ -1,21 +1,21 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MinecraftSpelunking.Presentation.ClientApp;
 using MinecraftSpelunking.Presentation.ClientApp.Jobs;
 
 var builder = new HostApplicationBuilder();
+builder.Configuration.AddJsonFile("appsettings.json");
 
-builder.Services.Configure<MinecraftSpelunkingClientConfiguration>(configuration =>
+builder.Services.Configure<MinecraftSpelunkingClientConfiguration>(client =>
 {
-    configuration.BaseAddress = "https://localhost:8081";
-    configuration.ClientUserName = "anthony@turner.ec";
-    configuration.ClientSecret = "Password1!";
+    builder.Configuration.GetSection("MinecraftSpelunkingClientConfiguration").Bind(client);
 });
 
 builder.Services.RegisterScannerServices();
 
-builder.Services.AddScoped<PingJob>();
+builder.Services.AddScoped<ScanJob>();
 
-builder.Services.AddHostedService<JobRunner>();
+builder.Services.AddHostedService<ScanJobRunner>();
 
 await builder.Build().RunAsync();

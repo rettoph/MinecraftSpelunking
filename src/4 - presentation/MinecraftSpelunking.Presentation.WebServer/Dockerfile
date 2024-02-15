@@ -37,6 +37,7 @@ RUN dotnet build "./MinecraftSpelunking.Presentation.WebServer.csproj" -c $BUILD
 FROM dotnet-build AS dotnet-publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./MinecraftSpelunking.Presentation.WebServer.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN ls -alt /app/publish/wwwroot
 
 
 

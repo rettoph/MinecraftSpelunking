@@ -61,7 +61,7 @@ namespace MinecraftSpelunking.Presentation.WebServer.Controllers.Api.v1
 
         [HttpPost]
         [BasicAuthorization]
-        [Route("complete")]
+        [Route(Constants.Routes.Api.v1.AddressBlockAssignment.Complete)]
         public async Task<Response<AddressBlockAssignmentModel>> Complete([FromBody] AddressBlockAssignmentResultsModel results)
         {
             UserDto? userDto = await _users.GetCurrentUserAsync();

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using MinecraftSpelunking.Application.AspNetCore.Extensions.Microsoft.DependencyInjection;
-using MinecraftSpelunking.Presentation.WebServer;
+using MinecraftSpelunking.Presentation.Common;
 using MinecraftSpelunking.Presentation.WebServer.AutoMapper;
 using MinecraftSpelunking.Presentation.WebServer.Components;
 using MinecraftSpelunking.Presentation.WebServer.Extensions.Microsoft.AspNetCore.Builder;
