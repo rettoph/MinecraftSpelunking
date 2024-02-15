@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MinecraftSpelunking.Presentation.WebServer.Models;
+using MinecraftSpelunking.Presentation.Common;
 
 namespace MinecraftSpelunking.Presentation.WebServer.Controllers
 {

@@ -3,7 +3,7 @@
     public enum ServerStatusEnum
     {
         Unknown,
-        Online,
-        Offline
+        Offline,
+        Online
     }
 }

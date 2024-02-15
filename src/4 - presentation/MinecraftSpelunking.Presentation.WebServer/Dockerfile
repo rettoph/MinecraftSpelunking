@@ -23,6 +23,8 @@ RUN mv ./wwwroot/dist/* /dist
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS dotnet-build
 ARG BUILD_CONFIGURATION=Release
+WORKDIR /libraries
+COPY ["libraries", "."]
 WORKDIR /src
 COPY ["src", "."]
 RUN dotnet restore "./4 - presentation/MinecraftSpelunking.Presentation.WebServer/./MinecraftSpelunking.Presentation.WebServer.csproj"

@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using MinecraftSpelunking.Domain.Common.Services;
 using MinecraftSpelunking.Domain.Database;
-using MinecraftSpelunking.Domain.Identity.Common.Entities;
 using MinecraftSpelunking.Domain.Minecraft.Common.Entities;
 using MinecraftSpelunking.Domain.Minecraft.Common.Enums;
 using MinecraftSpelunking.Domain.Minecraft.Common.Services;
@@ -80,35 +79,12 @@ namespace MinecraftSpelunking.Domain.Minecraft.Services
                     }
                 } while (next.Status != AddressBlockStatusEnum.Available);
 
-                if (next is not null)
-                {
-                    await this.context.SaveChangesAsync();
-                }
-
                 return next;
             }
             finally
             {
                 _lock.Release();
             }
-        }
-
-        public async Task<AddressBlockAssignment?> TryAssignAddressBlockAsync(AddressBlock block, User user)
-        {
-            block.Status = AddressBlockStatusEnum.Assigned;
-            block.ModifiedAt = DateTime.Now;
-
-            AddressBlockAssignment assignment = new AddressBlockAssignment()
-            {
-                User = user,
-                Block = block,
-                AssignedAt = DateTime.Now
-            };
-
-            this.context.Add(assignment);
-            await this.context.SaveChangesAsync();
-
-            return assignment;
         }
     }
 }

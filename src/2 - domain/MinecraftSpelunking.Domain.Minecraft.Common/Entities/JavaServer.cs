@@ -26,7 +26,6 @@ namespace MinecraftSpelunking.Domain.Minecraft.Common.Entities
 
         public ServerStatusEnum Status { get; set; }
 
-        public DateTime ModifiedAt { get; set; } = DateTime.Now;
         public DateTime LastOnlineAt { get; set; }
     }
 }

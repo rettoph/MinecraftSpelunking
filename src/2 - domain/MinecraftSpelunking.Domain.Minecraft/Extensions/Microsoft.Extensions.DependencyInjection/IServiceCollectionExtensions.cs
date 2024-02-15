@@ -1,4 +1,5 @@
-﻿using MinecraftSpelunking.Domain.Minecraft.Common.Json;
+﻿using MinecraftPinger.Library;
+using MinecraftSpelunking.Domain.Minecraft.Common.Json;
 using MinecraftSpelunking.Domain.Minecraft.Common.Services;
 using MinecraftSpelunking.Domain.Minecraft.Services;
 using JsonOptionsHttp = Microsoft.AspNetCore.Http.Json.JsonOptions;
@@ -12,6 +13,10 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             return services.AddScoped<IReservedAddressBlockService, ReservedAddressBlockService>()
                 .AddScoped<IAddressBlockService, AddressBlockService>()
+                .AddScoped<IAddressBlockAssignmentService, AddressBlockAssignmentService>()
+                .AddScoped<IJavaServerService, JavaServerService>()
+                .AddScoped<IServerIconService, ServerIconService>()
+                .AddScoped<JavaPinger>()
                 .Configure<JsonOptionsMvc>(json =>
                 {
                     json.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;

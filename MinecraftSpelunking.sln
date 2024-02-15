@@ -57,13 +57,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Applica
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Application.Database", "src\3 - application\MinecraftSpelunking.Application.Database\MinecraftSpelunking.Application.Database.csproj", "{CFE7EDFD-24EF-4ABC-9864-226BF76A1DFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Application.Minecraft", "src\3 - application\MinecraftSpelunking.Application.Minecraft\MinecraftSpelunking.Application.Minecraft.csproj", "{E7DF2F74-EF12-407C-8C36-859DFA951029}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Application.Minecraft", "src\3 - application\MinecraftSpelunking.Application.Minecraft\MinecraftSpelunking.Application.Minecraft.csproj", "{E7DF2F74-EF12-407C-8C36-859DFA951029}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Application.Minecraft.Common", "src\3 - application\MinecraftSpelunking.Application.Minecraft.Common\MinecraftSpelunking.Application.Minecraft.Common.csproj", "{C21ED12C-A4F8-49CA-82B8-B67070F9C7E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Application.Minecraft.Common", "src\3 - application\MinecraftSpelunking.Application.Minecraft.Common\MinecraftSpelunking.Application.Minecraft.Common.csproj", "{C21ED12C-A4F8-49CA-82B8-B67070F9C7E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Common.Services", "src\1 - common\MinecraftSpelunking.Common.Services\MinecraftSpelunking.Common.Services.csproj", "{288FC2E7-2661-49F5-95F2-A2AE7A7BE3CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Common.Services", "src\1 - common\MinecraftSpelunking.Common.Services\MinecraftSpelunking.Common.Services.csproj", "{288FC2E7-2661-49F5-95F2-A2AE7A7BE3CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Domain.Common", "src\2 - domain\MinecraftSpelunking.Domain.Common\MinecraftSpelunking.Domain.Common.csproj", "{34C37A1E-74D6-424E-B0D5-756E69A266E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Domain.Common", "src\2 - domain\MinecraftSpelunking.Domain.Common\MinecraftSpelunking.Domain.Common.csproj", "{34C37A1E-74D6-424E-B0D5-756E69A266E6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Application.Scanner", "src\3 - application\MinecraftSpelunking.Application.Scanner\MinecraftSpelunking.Application.Scanner.csproj", "{B6806771-007F-4D9A-AD89-50BB0410E829}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Presentation.Scanner", "src\4 - presentation\MinecraftSpelunking.Presentation.Scanner\MinecraftSpelunking.Presentation.Scanner.csproj", "{F23F2A71-A285-4118-BE64-4351E82DA631}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Presentation.Common", "src\4 - presentation\MinecraftSpelunking.Presentation.Common\MinecraftSpelunking.Presentation.Common.csproj", "{5F729EC1-A433-4B9C-8B0A-9384FE57AE7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -159,6 +165,18 @@ Global
 		{34C37A1E-74D6-424E-B0D5-756E69A266E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34C37A1E-74D6-424E-B0D5-756E69A266E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34C37A1E-74D6-424E-B0D5-756E69A266E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6806771-007F-4D9A-AD89-50BB0410E829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6806771-007F-4D9A-AD89-50BB0410E829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6806771-007F-4D9A-AD89-50BB0410E829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6806771-007F-4D9A-AD89-50BB0410E829}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F23F2A71-A285-4118-BE64-4351E82DA631}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F23F2A71-A285-4118-BE64-4351E82DA631}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F23F2A71-A285-4118-BE64-4351E82DA631}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F23F2A71-A285-4118-BE64-4351E82DA631}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F729EC1-A433-4B9C-8B0A-9384FE57AE7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F729EC1-A433-4B9C-8B0A-9384FE57AE7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F729EC1-A433-4B9C-8B0A-9384FE57AE7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F729EC1-A433-4B9C-8B0A-9384FE57AE7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -189,6 +207,9 @@ Global
 		{C21ED12C-A4F8-49CA-82B8-B67070F9C7E6} = {CC16B7C1-C605-4FAA-9494-AA2435C4F845}
 		{288FC2E7-2661-49F5-95F2-A2AE7A7BE3CD} = {44F2A57E-62E4-42B4-AB6C-67AF3A683404}
 		{34C37A1E-74D6-424E-B0D5-756E69A266E6} = {042CA6B2-2245-4EAD-93D1-DA371AEECF87}
+		{B6806771-007F-4D9A-AD89-50BB0410E829} = {CC16B7C1-C605-4FAA-9494-AA2435C4F845}
+		{F23F2A71-A285-4118-BE64-4351E82DA631} = {2AA5A275-EAED-4F7C-BA8D-2DE23CC6E326}
+		{5F729EC1-A433-4B9C-8B0A-9384FE57AE7B} = {2AA5A275-EAED-4F7C-BA8D-2DE23CC6E326}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CEBCF35A-887C-46E6-8896-9EE090069DE8}

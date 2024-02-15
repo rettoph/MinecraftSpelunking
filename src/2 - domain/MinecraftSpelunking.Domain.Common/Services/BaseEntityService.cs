@@ -14,34 +14,9 @@ namespace MinecraftSpelunking.Domain.Common.Services
         {
         }
 
-        public async Task<TEntity?> GetByIdAsync(int id)
-        {
-            return await this.entities.FirstOrDefaultAsync(x => x.Id == id);
-        }
-
         public IQueryable<TEntity> AsQueryable()
         {
             return this.entities.AsQueryable();
-        }
-
-        public async Task AddAsync(TEntity entity, bool saveChanges = true)
-        {
-            this.entities.Add(entity);
-
-            if (saveChanges)
-            {
-                await this.context.SaveChangesAsync();
-            }
-        }
-
-        public async Task RemoveAsync(TEntity entity, bool saveChanges = true)
-        {
-            this.entities.Remove(entity);
-
-            if (saveChanges)
-            {
-                await this.context.SaveChangesAsync();
-            }
         }
     }
 }

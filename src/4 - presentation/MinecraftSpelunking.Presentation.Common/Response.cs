@@ -1,4 +1,4 @@
-﻿namespace MinecraftSpelunking.Presentation.WebServer.Models
+﻿namespace MinecraftSpelunking.Presentation.Common
 {
     public class Response
     {

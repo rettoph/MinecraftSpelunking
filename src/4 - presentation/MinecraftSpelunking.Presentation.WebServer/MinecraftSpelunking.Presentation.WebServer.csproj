@@ -26,6 +26,7 @@
     <ProjectReference Include="..\..\3 - application\MinecraftSpelunking.Application.Database\MinecraftSpelunking.Application.Database.csproj" />
     <ProjectReference Include="..\..\3 - application\MinecraftSpelunking.Application.Identity\MinecraftSpelunking.Application.Identity.csproj" />
     <ProjectReference Include="..\..\3 - application\MinecraftSpelunking.Application.Minecraft\MinecraftSpelunking.Application.Minecraft.csproj" />
+    <ProjectReference Include="..\MinecraftSpelunking.Presentation.Common\MinecraftSpelunking.Presentation.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization.Policy;
 using MinecraftSpelunking.Application.AspNetCore.Common.Dtos;
 using MinecraftSpelunking.Application.AspNetCore.Common.Services;
-using MinecraftSpelunking.Presentation.WebServer.Models;
+using MinecraftSpelunking.Presentation.Common;
 
 namespace MinecraftSpelunking.Presentation.WebServer.Middleware.Handlers
 {

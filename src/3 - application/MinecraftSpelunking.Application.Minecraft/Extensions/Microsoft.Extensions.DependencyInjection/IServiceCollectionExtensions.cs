@@ -10,7 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             return services.RegisterDomainMinecraftServices()
                 .AddAutoMapper(typeof(ApplicationMinecraftMapperProfile))
-                .AddScoped<IAddressBlockApplicationService, AddressBlockApplicationService>();
+                .AddScoped<IAddressBlockAssignmentApplicationService, AddressBlockAssignmentApplicationService>();
         }
     }
 }

@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .TryRegisterLettuceEncrypt(builder.Configuration)
+    .RegisterPresentationCommonServices()
     .RegisterApplicationDatabaseServices(builder.Configuration)
     .RegisterApplicationIdentityServices()
     .RegisterAspNetCoreServices()
@@ -31,6 +32,7 @@ builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
 
 builder.Services.AddTransient<EnsureAdminUserExistsMiddleware>()
+    .AddTransient<SaveDataContextMiddleware>()
     .AddSingleton<IAuthorizationMiddlewareResultHandler, CustomAuthorizationMiddlewareResultHandler>()
     .AddAutoMapper(typeof(WebServerProfile).Assembly);
 
@@ -48,6 +50,7 @@ app.UseStaticFiles();
 app.UseAntiforgery();
 
 app.UseMiddleware<EnsureAdminUserExistsMiddleware>();
+app.UseMiddleware<SaveDataContextMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
