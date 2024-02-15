@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using MinecraftSpelunking.Application.AspNetCore.Common.Dtos
+@using MinecraftSpelunking.Application.AspNetCore.Common.Services
+@using MinecraftSpelunking.Application.Identity.Common.Dtos
+@using MinecraftSpelunking.Application.Identity.Common.Enums
+@using MinecraftSpelunking.Application.Identity.Common.Services
+@using MinecraftSpelunking.Application.Minecraft.Common.Services
+@using MinecraftSpelunking.Domain.Identity.Common.Enums
+@using MinecraftSpelunking.Domain.Minecraft.Common.Entities
+@using MinecraftSpelunking.Domain.Minecraft.Common.Enums
+@using MinecraftSpelunking.Presentation.WebServer.Attributes
+@using Microsoft.AspNetCore.Antiforgery;
+@using System.ComponentModel.DataAnnotations
+@using System.Net
+
+@attribute [RequireAntiforgeryToken]
+@attribute [Route(Constants.Routes.AddressBlocks.BulkRequestSubNetworks)]
+
+@inject IStatusMessageApplicationService StatusMessages;
+@inject IAddressBlockApplicationService AddressBlocks;
+
+<PageTitle>Login</PageTitle>
+
+<h1>Bulk Request Subnetworks</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <EditForm Model="BulkReserveNetworkInput" OnValidSubmit="BulkReserveSubNets" FormName="bulk-reserve-subnets">
+            <DataAnnotationsValidator />
+            <h2>Bulk reserve subnetworks</h2>
+            <ValidationSummary class="text-danger" role="alert" />
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="BulkReserveNetworkInput.Network" class="form-control" autocomplete="network" aria-required="true" placeholder="0.0.0.0/20" />
+                <label for="network">Network</label>
+                <ValidationMessage For="() => BulkReserveNetworkInput.Network" class="text-danger" />
+            </div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Reserve</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private SignInResultDto? Result;
+
+    [SupplyParameterFromForm]
+    private BulkReserveNetworkInputModel BulkReserveNetworkInput { get; set; } = new();
+
+
+    private async Task BulkReserveSubNets()
+    {
+        if (IPNetwork2.TryParse(this.BulkReserveNetworkInput.Network, out IPNetwork2 network) == false)
+        {
+            this.StatusMessages.Add(StatusMessageDto.Error("Unable to parse input"));
+        }
+
+        IPNetworkCollection networks = network.Subnet(AddressBlock.CIDR);
+
+        int rows = await this.AddressBlocks.BulkSetStatusAsync(networks, AddressBlockStatusEnum.Requested);
+        this.StatusMessages.Add(StatusMessageDto.Success($"{rows} updated."));
+    }
+
+    private class BulkReserveNetworkInputModel
+    {
+        [Required(ErrorMessage = "Network is required")]
+        [RegularExpression("[0-9]{0,3}\\.[0-9]{0,3}\\.[0-9]{0,3}\\.[0-9]{0,3}/[0-9]{0,2}", ErrorMessage = "Network must be in CIDR notation")]
+        public string Network { get; set; } = string.Empty;
+    }
+}

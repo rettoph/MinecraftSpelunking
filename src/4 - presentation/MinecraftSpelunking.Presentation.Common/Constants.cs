@@ -8,10 +8,16 @@
 
             public static class Account
             {
-                public const string Index = $"/Account";
-                public const string RegisterAdmin = $"{Routes.Account.Index}/RegisterAdmin";
-                public const string Login = $"{Routes.Account.Index}/Login";
-                public const string Logout = $"{Routes.Account.Index}/Logout";
+                public const string Index = $"/{nameof(Account)}";
+                public const string RegisterAdmin = $"{Routes.Account.Index}/{nameof(RegisterAdmin)}";
+                public const string Login = $"{Routes.Account.Index}/{nameof(Login)}";
+                public const string Logout = $"{Routes.Account.Index}/{nameof(Logout)}";
+            }
+
+            public static class AddressBlocks
+            {
+                public const string Index = $"/{nameof(AddressBlocks)}";
+                public const string BulkRequestSubNetworks = $"{Routes.AddressBlocks.Index}/{nameof(BulkRequestSubNetworks)}";
             }
 
             public static class Api

@@ -8,5 +8,7 @@ namespace MinecraftSpelunking.Common.Services
         IPersistence<TEntity> Persist();
         TEntity Map(object? dto);
         TDto Map<TDto>(TEntity? entity);
+        IEnumerable<TDto> Map<TDto>(IEnumerable<TEntity> entities);
+        Page<TDto> Map<TDto>(Page<TEntity> entities);
     }
 }

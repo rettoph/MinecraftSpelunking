@@ -2,7 +2,7 @@
 {
     public enum AddressBlockStatusEnum
     {
-        Reserved,
+        Requested,
         Available,
         Assigned,
         Scanned

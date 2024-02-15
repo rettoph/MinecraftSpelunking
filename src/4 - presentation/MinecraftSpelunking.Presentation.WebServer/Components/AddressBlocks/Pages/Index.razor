@@ -1,0 +1,100 @@
+﻿@using MinecraftSpelunking.Application.AspNetCore.Common.Dtos
+@using MinecraftSpelunking.Application.AspNetCore.Common.Services
+@using MinecraftSpelunking.Application.Minecraft.Common.Dtos
+@using MinecraftSpelunking.Application.Minecraft.Common.Services;
+@using MinecraftSpelunking.Common
+@using MinecraftSpelunking.Domain.Minecraft.Common.Enums
+@using System.Net
+@using System.ComponentModel.DataAnnotations
+
+
+@attribute [AuthorizeWithRoles(UserRoleTypeEnum.Admin)]
+@attribute [Route(Constants.Routes.AddressBlocks.Index)]
+
+@inject IAddressBlockApplicationService AddressBlocks;
+@inject NavigationManager NavigationManager;
+
+<PageTitle>Address Blocks</PageTitle>
+
+<h1>
+    Address Blocks
+    | <NavLink href="@Constants.Routes.AddressBlocks.BulkRequestSubNetworks">Bulk Request</NavLink>
+</h1>
+
+<SearchBar></SearchBar>
+
+@if (this.Page is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Network</th>
+                <th scope="col">Status</th>
+                <th scope="col">Modified At</th>
+                <th scope="col">Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (AddressBlockDto block in this.Page.Items)
+            {
+                <tr>
+                    <th scope="row">@block.Id.ToString("#,###")</th>
+                    <td>@block.Network.ToString()</td>
+                    <td>@block.Status</td>
+                    <td>@block.ModifiedAt</td>
+                    <td>
+                        @if (block.Status != AddressBlockStatusEnum.Requested)
+                        {
+                            <a @onclick="async (args) => await this.SetStatusAsync(block, AddressBlockStatusEnum.Requested)"
+                            @onclick:preventDefault
+                               href="javascript: void(0);">Scan</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <Paginator T="AddressBlockDto" Page="this.Page"></Paginator>
+}
+
+<hr />
+
+@code {
+    Page<AddressBlockDto>? Page;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await this.LoadPage();
+    }
+
+    private async Task SetStatusAsync(AddressBlockDto block, AddressBlockStatusEnum status)
+    {
+        await this.AddressBlocks.SetStatusAsync(block.Id, status);
+        block.Status = status;
+    }
+
+    private async Task LoadPage()
+    {
+        this.Page = null;
+        this.StateHasChanged();
+
+        if (this.NavigationManager.TryGetQueryString<int>("page", out int page) == false)
+        {
+            page = 1;
+        }
+
+        if (this.NavigationManager.TryGetQueryString<string>("query", out string query) == false)
+        {
+            query = string.Empty;
+        }
+
+        this.Page = await this.AddressBlocks.GetAddressBlocksAsync(page, 25, query);
+        this.StateHasChanged();
+    }
+}

@@ -35,8 +35,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Start.sh = Start.sh
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Common.Extensions", "src\1 - common\MinecraftSpelunking.Common.Extensions\MinecraftSpelunking.Common.Extensions.csproj", "{EB3FAE81-AC64-4A35-9367-9EB6F1603C15}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Application.AspNetCore.Common", "src\3 - application\MinecraftSpelunking.Application.AspNetCore.Common\MinecraftSpelunking.Application.AspNetCore.Common.csproj", "{B8C006F1-D0ED-4A26-BE24-4E597BF06FF0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Application.AspNetCore", "src\3 - application\MinecraftSpelunking.Application.AspNetCore\MinecraftSpelunking.Application.AspNetCore.csproj", "{13780D0C-2AFD-44C2-9728-228725BD7A95}"
@@ -69,7 +67,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Applica
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Presentation.Scanner", "src\4 - presentation\MinecraftSpelunking.Presentation.Scanner\MinecraftSpelunking.Presentation.Scanner.csproj", "{F23F2A71-A285-4118-BE64-4351E82DA631}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSpelunking.Presentation.Common", "src\4 - presentation\MinecraftSpelunking.Presentation.Common\MinecraftSpelunking.Presentation.Common.csproj", "{5F729EC1-A433-4B9C-8B0A-9384FE57AE7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Presentation.Common", "src\4 - presentation\MinecraftSpelunking.Presentation.Common\MinecraftSpelunking.Presentation.Common.csproj", "{5F729EC1-A433-4B9C-8B0A-9384FE57AE7B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSpelunking.Common", "src\1 - common\MinecraftSpelunking.Common\MinecraftSpelunking.Common.csproj", "{3300D7DF-53AF-4035-8467-0178BC3A04B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,10 +105,6 @@ Global
 		{D9907C59-4FE0-4B7C-BD59-BE8D5AFF6474}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9907C59-4FE0-4B7C-BD59-BE8D5AFF6474}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9907C59-4FE0-4B7C-BD59-BE8D5AFF6474}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB3FAE81-AC64-4A35-9367-9EB6F1603C15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB3FAE81-AC64-4A35-9367-9EB6F1603C15}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB3FAE81-AC64-4A35-9367-9EB6F1603C15}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB3FAE81-AC64-4A35-9367-9EB6F1603C15}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B8C006F1-D0ED-4A26-BE24-4E597BF06FF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B8C006F1-D0ED-4A26-BE24-4E597BF06FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8C006F1-D0ED-4A26-BE24-4E597BF06FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -177,6 +173,10 @@ Global
 		{5F729EC1-A433-4B9C-8B0A-9384FE57AE7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F729EC1-A433-4B9C-8B0A-9384FE57AE7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F729EC1-A433-4B9C-8B0A-9384FE57AE7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3300D7DF-53AF-4035-8467-0178BC3A04B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3300D7DF-53AF-4035-8467-0178BC3A04B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3300D7DF-53AF-4035-8467-0178BC3A04B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3300D7DF-53AF-4035-8467-0178BC3A04B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -192,7 +192,6 @@ Global
 		{58029405-255B-442D-87D4-8FE798A676A4} = {042CA6B2-2245-4EAD-93D1-DA371AEECF87}
 		{4219BF5B-7A7C-4C81-935A-23E36D4DF264} = {042CA6B2-2245-4EAD-93D1-DA371AEECF87}
 		{D9907C59-4FE0-4B7C-BD59-BE8D5AFF6474} = {042CA6B2-2245-4EAD-93D1-DA371AEECF87}
-		{EB3FAE81-AC64-4A35-9367-9EB6F1603C15} = {44F2A57E-62E4-42B4-AB6C-67AF3A683404}
 		{B8C006F1-D0ED-4A26-BE24-4E597BF06FF0} = {CC16B7C1-C605-4FAA-9494-AA2435C4F845}
 		{13780D0C-2AFD-44C2-9728-228725BD7A95} = {CC16B7C1-C605-4FAA-9494-AA2435C4F845}
 		{19322482-8BEB-40D5-B94B-FE565CE57F63} = {CC16B7C1-C605-4FAA-9494-AA2435C4F845}
@@ -210,6 +209,7 @@ Global
 		{B6806771-007F-4D9A-AD89-50BB0410E829} = {CC16B7C1-C605-4FAA-9494-AA2435C4F845}
 		{F23F2A71-A285-4118-BE64-4351E82DA631} = {2AA5A275-EAED-4F7C-BA8D-2DE23CC6E326}
 		{5F729EC1-A433-4B9C-8B0A-9384FE57AE7B} = {2AA5A275-EAED-4F7C-BA8D-2DE23CC6E326}
+		{3300D7DF-53AF-4035-8467-0178BC3A04B5} = {44F2A57E-62E4-42B4-AB6C-67AF3A683404}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CEBCF35A-887C-46E6-8896-9EE090069DE8}

@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Standart.Hash.xxHash" Version="4.0.5" />
+    <PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="8.102.1" />
   </ItemGroup>
   
   <ItemGroup>

@@ -1,0 +1,42 @@
+﻿@inject NavigationManager NavigationManager;
+
+<form @onsubmit="() => this.OnSearch.InvokeAsync(this.Value)">
+    <div class="input-group">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="search">
+                <i class="bi bi-search"></i>
+            </span>
+            <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search" @bind-value="Value">
+        </div>
+    </div>
+</form>
+
+
+@code {
+    [Parameter]
+    public string Value { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback<string> OnSearch { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (this.OnSearch.HasDelegate == false)
+        {
+            this.OnSearch = new EventCallback<string>(null, this.DefaultOnSearch);
+        }
+
+        if (this.NavigationManager.TryGetQueryString<string>("query", out string value))
+        {
+            this.Value = value;
+        }
+    }
+
+    private void DefaultOnSearch(string query)
+    {
+        string newUri = this.NavigationManager.GetUriWithQueryParameters(new Dictionary<string, object?> { { "query", query }, { "page", 1 } });
+        this.NavigationManager.NavigateTo(newUri, true);
+    }
+}

@@ -11,6 +11,8 @@ namespace MinecraftSpelunking.Domain.Minecraft.Services
 {
     internal class AddressBlockAssignmentService : BaseEntityService<AddressBlockAssignment>, IAddressBlockAssignmentService
     {
+        private static readonly SemaphoreSlim _lock = new SemaphoreSlim(1);
+
         private readonly IAddressBlockService _blocks;
         private readonly IJavaServerService _javaServers;
 
@@ -22,35 +24,46 @@ namespace MinecraftSpelunking.Domain.Minecraft.Services
 
         public async Task<AddressBlockAssignment[]> GetAssignmentsAsync(User user, int count)
         {
-            List<AddressBlockAssignment> assignments = new List<AddressBlockAssignment>();
+            await _lock.WaitAsync();
 
-            for (int i = 0; i < count; i++)
+            try
             {
-                AddressBlock? block = await _blocks.GetAssignableAddressBlockAsync();
-                if (block is null)
+                await _blocks.EnsureAllBlocksExistAsync();
+
+                List<AddressBlockAssignment> assignments = new List<AddressBlockAssignment>();
+
+                for (int i = 0; i < count; i++)
                 {
-                    break;
+                    AddressBlock? block = await _blocks.GetAssignableAddressBlockAsync();
+                    if (block is null)
+                    {
+                        break;
+                    }
+
+                    AddressBlockAssignment? assignment = this.TryAssignAddressBlockAsync(block, user);
+                    await this.context.SaveChangesAsync();
+
+                    if (assignment is null)
+                    {
+                        break;
+                    }
+
+                    assignments.Add(assignment);
                 }
 
-                AddressBlockAssignment? assignment = this.TryAssignAddressBlockAsync(block, user);
+                if (assignments.Count == 0)
+                {
+                    return Array.Empty<AddressBlockAssignment>();
+                }
+
                 await this.context.SaveChangesAsync();
 
-                if (assignment is null)
-                {
-                    break;
-                }
-
-                assignments.Add(assignment);
+                return assignments.ToArray();
             }
-
-            if (assignments.Count == 0)
+            finally
             {
-                return Array.Empty<AddressBlockAssignment>();
+                _lock.Release();
             }
-
-            await this.context.SaveChangesAsync();
-
-            return assignments.ToArray();
         }
 
         public async Task<bool> TryCompleteAssignmentsAsync(int id, User user, Server[] javaServers)

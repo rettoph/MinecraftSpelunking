@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .TryRegisterLettuceEncrypt(builder.Configuration)
+    .RegisterCommonServices()
     .RegisterPresentationCommonServices()
     .RegisterApplicationDatabaseServices(builder.Configuration)
     .RegisterApplicationIdentityServices()
@@ -47,7 +48,6 @@ app.UseHsts();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseAntiforgery();
 
 app.UseMiddleware<EnsureAdminUserExistsMiddleware>();
 app.UseMiddleware<SaveDataContextMiddleware>();
@@ -57,6 +57,8 @@ app.UseAuthorization();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+
+app.UseAntiforgery();
 
 app.MapControllerRoute(
     name: "default",

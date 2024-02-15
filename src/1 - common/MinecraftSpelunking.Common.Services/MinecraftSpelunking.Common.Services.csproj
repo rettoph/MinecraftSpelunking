@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MinecraftSpelunking.Common.Database\MinecraftSpelunking.Common.Database.csproj" />
+    <ProjectReference Include="..\MinecraftSpelunking.Common\MinecraftSpelunking.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
