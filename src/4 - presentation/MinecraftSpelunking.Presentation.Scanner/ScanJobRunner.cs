@@ -23,7 +23,7 @@ namespace MinecraftSpelunking.Presentation.ClientApp
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            int threadCount = 256 / 2;
+            int threadCount = 256 / 8;
 
             AddressBlockAssignmentsModel? response = await _client.TryGetAsync(threadCount);
             if (response is null)
