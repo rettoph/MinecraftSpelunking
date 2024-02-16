@@ -27,38 +27,54 @@ namespace MinecraftSpelunking.Presentation.Scanner.Implementations
 
         public async Task<AddressBlockAssignmentModel?> TryCompleteAsync(AddressBlockAssignmentResultsModel previous)
         {
-            UriBuilder uri = new UriBuilder(_http.BaseAddress ?? throw new Exception());
-            uri.Path = Constants.Routes.Api.v1.AddressBlockAssignment.Complete;
-
-            HttpResponseMessage response = await _http.PostAsJsonAsync(uri.Uri, previous);
-            if (response.StatusCode != HttpStatusCode.OK)
+            try
             {
+                UriBuilder uri = new UriBuilder(_http.BaseAddress ?? throw new Exception());
+                uri.Path = Constants.Routes.Api.v1.AddressBlockAssignment.Complete;
+
+                HttpResponseMessage response = await _http.PostAsJsonAsync(uri.Uri, previous);
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    return null;
+                }
+
+                Response<AddressBlockAssignmentModel>? content = await response.Content.ReadFromJsonAsync<Response<AddressBlockAssignmentModel>>(_jsonOptions);
+
+                return content?.Model;
+            }
+            catch (Exception ex)
+            {
+                await Task.Delay(10000);
                 return null;
             }
-
-            Response<AddressBlockAssignmentModel>? content = await response.Content.ReadFromJsonAsync<Response<AddressBlockAssignmentModel>>(_jsonOptions);
-
-            return content?.Model;
         }
 
         public async Task<AddressBlockAssignmentsModel?> TryGetAsync(int count)
         {
-            UriBuilder uri = new UriBuilder(_http.BaseAddress ?? throw new Exception());
-            uri.Path = Constants.Routes.Api.v1.AddressBlockAssignment.Get;
-            uri.Query = new QueryBuilder()
+            try
+            {
+                UriBuilder uri = new UriBuilder(_http.BaseAddress ?? throw new Exception());
+                uri.Path = Constants.Routes.Api.v1.AddressBlockAssignment.Get;
+                uri.Query = new QueryBuilder()
             {
                 { "count", count.ToString() }
             }.ToString();
 
-            HttpResponseMessage response = await _http.GetAsync(uri.Uri);
-            if (response.StatusCode != HttpStatusCode.OK)
+                HttpResponseMessage response = await _http.GetAsync(uri.Uri);
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    return null;
+                }
+
+                Response<AddressBlockAssignmentsModel>? content = await response.Content.ReadFromJsonAsync<Response<AddressBlockAssignmentsModel>>(_jsonOptions);
+
+                return content?.Model;
+            }
+            catch (Exception ex)
             {
+                await Task.Delay(10000);
                 return null;
             }
-
-            Response<AddressBlockAssignmentsModel>? content = await response.Content.ReadFromJsonAsync<Response<AddressBlockAssignmentsModel>>(_jsonOptions);
-
-            return content?.Model;
         }
     }
 }

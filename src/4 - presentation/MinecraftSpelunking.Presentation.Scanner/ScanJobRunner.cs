@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using MinecraftSpelunking.Presentation.ClientApp.Jobs;
 using MinecraftSpelunking.Presentation.Common.Models;
 using MinecraftSpelunking.Presentation.Scanner;
@@ -13,17 +14,23 @@ namespace MinecraftSpelunking.Presentation.ClientApp
         private IMinecraftSpelunkingApiClient _client;
         private IServiceProvider _provider;
         private ILogger<ScanJobRunner> _logger;
+        private IOptions<MinecraftSpelunkingClientConfiguration> _configuration;
+        private readonly DateTime _startTime;
+        private TimeSpan _runTime;
 
-        public ScanJobRunner(IMinecraftSpelunkingApiClient client, IServiceProvider provider, ILogger<ScanJobRunner> logger)
+        public ScanJobRunner(IMinecraftSpelunkingApiClient client, IServiceProvider provider, ILogger<ScanJobRunner> logger, IOptions<MinecraftSpelunkingClientConfiguration> configuration)
         {
             _client = client;
             _provider = provider;
             _logger = logger;
+            _configuration = configuration;
+            _startTime = DateTime.Now;
+            _runTime = TimeSpan.FromHours(_configuration.Value.RunTimeInHours);
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            int threadCount = 256 / 8;
+            int threadCount = _configuration.Value.ConcurrentTasks;
 
             AddressBlockAssignmentsModel? response = await _client.TryGetAsync(threadCount);
             if (response is null)
@@ -48,7 +55,7 @@ namespace MinecraftSpelunking.Presentation.ClientApp
                 jobs.Remove(completed);
 
                 AddressBlockAssignmentModel? next = await _client.TryCompleteAsync(completed.Result);
-                if (next is not null)
+                if (next is not null && (DateTime.Now - _startTime) < _runTime)
                 {
                     jobs.Add(this.Run(next));
                 }
@@ -60,6 +67,8 @@ namespace MinecraftSpelunking.Presentation.ClientApp
                 _logger.LogInformation("Completed {CompletedAssignments} assignments ({TotalIps} ips). Discovered {JavaServers} Java servers. Time elapsed: {TimeElapsed}. {IpsPerMinute} ips scanned per minute.",
                     completedAssignments, completedAssignments * 1024, foundJavaServers, stopwatch.Elapsed, totalIps / stopwatch.Elapsed.TotalMinutes);
             }
+
+            _logger.LogInformation("No jobs running. Scans complete. Goodbye.");
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
