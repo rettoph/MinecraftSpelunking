@@ -38,8 +38,6 @@ namespace MinecraftSpelunking.Presentation.ClientApp.Jobs
                         Host = pong.Endpoint.Address.ToString(),
                         Port = pong.Endpoint.Port
                     });
-
-                    _logger.LogInformation($"Found server at {pong.Endpoint}", assignment.Block.Network, count, addresses.Count);
                 }
 
                 if (++count % 256 == 0)
@@ -67,11 +65,11 @@ namespace MinecraftSpelunking.Presentation.ClientApp.Jobs
 
             if (pong.Status == PongStatusEnum.OK)
             {
-                _logger.LogInformation("Found Java Server within {Network}; Address = {Address}, Port = {Port}", assignment.Block.Network, pong.Endpoint.Address.ToString(), pong.Endpoint.Port);
+                _logger.LogInformation("Found Java Server at {Network}; Address = {Address}, Port = {Port}", assignment.Block.Network, pong.Endpoint.Address.ToString(), pong.Endpoint.Port);
             }
             else if (pong.Status == PongStatusEnum.Exception)
             {
-                _logger.LogError(pong.Exception, "Unknown error within {Network}; Address = {Address}, Port = {Port}", assignment.Block.Network, pong.Endpoint.Address.ToString(), pong.Endpoint.Port);
+                _logger.LogError(pong.Exception, "Unknown error at {Network}; Address = {Address}, Port = {Port}", assignment.Block.Network, pong.Endpoint.Address.ToString(), pong.Endpoint.Port);
             }
 
             return pong;

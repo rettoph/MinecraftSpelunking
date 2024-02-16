@@ -20,6 +20,11 @@
                 public const string BulkRequestSubNetworks = $"{Routes.AddressBlocks.Index}/{nameof(BulkRequestSubNetworks)}";
             }
 
+            public static class JavaServers
+            {
+                public const string View = $"/{nameof(View)}";
+            }
+
             public static class Api
             {
                 public const string Index = $"/api";

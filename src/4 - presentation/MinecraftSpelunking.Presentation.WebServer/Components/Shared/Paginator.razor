@@ -64,7 +64,7 @@
         if (max > this.Page.Total)
         {
             maxOffset = max - this.Page.Total;
-            max = this.Page.Number;
+            max = this.Page.Total;
         }
 
         min = Math.Max(1, min - maxOffset);

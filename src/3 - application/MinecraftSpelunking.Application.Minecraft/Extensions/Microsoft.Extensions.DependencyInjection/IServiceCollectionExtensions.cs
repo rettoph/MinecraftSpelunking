@@ -11,7 +11,8 @@ namespace Microsoft.Extensions.DependencyInjection
             return services.RegisterDomainMinecraftServices()
                 .AddAutoMapper(typeof(ApplicationMinecraftMapperProfile))
                 .AddScoped<IAddressBlockAssignmentApplicationService, AddressBlockAssignmentApplicationService>()
-                .AddScoped<IAddressBlockApplicationService, AddressBlockApplicationService>();
+                .AddScoped<IAddressBlockApplicationService, AddressBlockApplicationService>()
+                .AddScoped<IJavaServerApplicicationService, JavaServerApplicationService>();
         }
     }
 }

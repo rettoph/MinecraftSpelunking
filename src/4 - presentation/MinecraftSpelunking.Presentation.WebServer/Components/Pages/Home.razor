@@ -1,27 +1,106 @@
-﻿@using Microsoft.AspNetCore.Authorization
+﻿@using Humanizer
+@using Microsoft.AspNetCore.Authorization
 @using MinecraftSpelunking.Application.Identity.Common.Services
+@using MinecraftSpelunking.Application.Minecraft.Common.Dtos
 @using MinecraftSpelunking.Application.Minecraft.Common.Services
+@using MinecraftSpelunking.Common
+@using MinecraftSpelunking.Domain.Minecraft.Common.Enums
 
 @attribute [Route(Constants.Routes.Home)]
+@attribute [StreamRendering]
+@rendermode InteractiveServerRenderModeNoPreRender
 
-@inject IUserApplicationService Users;
-@inject IAddressBlockAssignmentApplicationService AddressBlocks;
+@inject IJavaServerApplicicationService JavaServers;
+@inject NavigationManager NavigationManager;
 
 <PageTitle>Home</PageTitle>
 
-<AuthorizeView>
-    <Authorized>
-        <p>Hello, @context.User.Identity?.Name!</p>
-    </Authorized>
-    <NotAuthorized>
-        <p>You're not authorized.</p>
-    </NotAuthorized>
-</AuthorizeView>
+<h1>Java Servers</h1>
 
-@code
+<SearchBar></SearchBar>
+
+@if (this.Page is null)
 {
+    <p>Loading...</p>
+}
+else
+{
+    <div class="server-list-container list-group">
+        @foreach (JavaServerDto server in this.Page.Items)
+        {
+            <NavLink class="nav-link" href="@(Constants.Routes.JavaServers.View + "/" + server.Id)">
+                <div class="server-container java-server list-group-item list-group-item-action d-flex align-items-center">
+                    <div class="icon-container d-inline-block">
+                        @if (server.Icon is null)
+                        {
+                            <img class="icon" src="/default.webp" />
+                        }
+                        else
+                        {
+                            <img class="icon" src="https://minecraft-spelunking.rettoph.io@(server.Icon?.Path)" />
+                        }
+                    </div>
+
+                    <div class="meta-container d-flex flex-grow flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <div>
+                                <h5 class="address mb-1">@server.Host:@server.Port</h5>
+                                <p class="description text-secondary">@server.Description</p>
+                            </div>
+
+                            <div class="text-end text-muted">
+                                <small class="@GetStatusClass(server.Status)">@server.Status</small>
+                                <br />
+                                <small>@server.Version</small>
+                                <br />
+                                <small>@((DateTime.Now - server.ModifiedAt).Humanize()) ago</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </NavLink>
+        }
+    </div>
+
+    <Paginator T="JavaServerDto" Page="this.Page"></Paginator>
+}
+
+<hr />
+
+@code {
+    Page<JavaServerDto>? Page;
+
     protected override async Task OnInitializedAsync()
     {
-        await base.OnInitializedAsync();
+        await this.LoadPage();
+    }
+
+    private async Task LoadPage()
+    {
+        this.Page = null;
+        this.StateHasChanged();
+
+        if (this.NavigationManager.TryGetQueryString<int>("page", out int page) == false)
+        {
+            page = 1;
+        }
+
+        if (this.NavigationManager.TryGetQueryString<string>("query", out string query) == false)
+        {
+            query = string.Empty;
+        }
+
+        this.Page = await this.JavaServers.GetJavaServersAsync(page, 25, query);
+        this.StateHasChanged();
+    }
+
+    private string GetStatusClass(ServerStatusEnum status)
+    {
+        return status switch
+        {
+            ServerStatusEnum.Online => "text-success",
+            ServerStatusEnum.Offline => "text-danger",
+            _ => "text-dark",
+        };
     }
 }

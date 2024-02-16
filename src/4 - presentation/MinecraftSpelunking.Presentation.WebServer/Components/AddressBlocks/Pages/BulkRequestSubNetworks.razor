@@ -30,9 +30,9 @@
             <h2>Bulk reserve subnetworks</h2>
             <ValidationSummary class="text-danger" role="alert" />
             <div class="form-floating mb-3">
-                <InputText @bind-Value="BulkReserveNetworkInput.Network" class="form-control" autocomplete="network" aria-required="true" placeholder="0.0.0.0/20" />
-                <label for="network">Network</label>
-                <ValidationMessage For="() => BulkReserveNetworkInput.Network" class="text-danger" />
+                <InputTextArea @bind-Value="BulkReserveNetworkInput.Networks" class="form-control" autocomplete="networks" aria-required="true" placeholder="0.0.0.0/20" />
+                <label for="network">Networks</label>
+                <ValidationMessage For="() => BulkReserveNetworkInput.Networks" class="text-danger" />
             </div>
             <button type="submit" class="w-100 btn btn-lg btn-primary">Reserve</button>
         </EditForm>
@@ -48,21 +48,49 @@
 
     private async Task BulkReserveSubNets()
     {
-        if (IPNetwork2.TryParse(this.BulkReserveNetworkInput.Network, out IPNetwork2 network) == false)
+        int rows = 0;
+        var notations = this.BulkReserveNetworkInput.Networks.Split('\n');
+
+        foreach (string notation in notations)
         {
-            this.StatusMessages.Add(StatusMessageDto.Error("Unable to parse input"));
+            if (IPNetwork2.TryParse(notation.Replace("\r", ""), out IPNetwork2 network) == false)
+            {
+                this.StatusMessages.Add(StatusMessageDto.Error("Unable to parse input"));
+            }
+
+            if(network.Cidr == AddressBlock.CIDR)
+            {
+                rows += await this.AddressBlocks.BulkSetStatusAsync(new[] { network }, AddressBlockStatusEnum.Requested);
+            }
+            else if(network.Cidr > AddressBlock.CIDR)
+            {
+                var supernetwork = new IPNetwork2(network.Network, AddressBlock.CIDR);
+                rows += await this.AddressBlocks.BulkSetStatusAsync(new[] { supernetwork }, AddressBlockStatusEnum.Requested);
+            }
+            else if (network.Cidr < AddressBlock.CIDR)
+            {
+                try
+                {
+                    IPNetworkCollection networks = network.Subnet(AddressBlock.CIDR);
+
+                    rows += await this.AddressBlocks.BulkSetStatusAsync(networks, AddressBlockStatusEnum.Requested);
+                }
+                catch
+                {
+                    this.StatusMessages.Add(StatusMessageDto.Error($"Exception calculating subnets for {notation}"));
+                }
+            }
         }
 
-        IPNetworkCollection networks = network.Subnet(AddressBlock.CIDR);
-
-        int rows = await this.AddressBlocks.BulkSetStatusAsync(networks, AddressBlockStatusEnum.Requested);
-        this.StatusMessages.Add(StatusMessageDto.Success($"{rows} updated."));
+        if(rows > 0)
+        {
+            this.StatusMessages.Add(StatusMessageDto.Success($"{rows} updated."));
+        }
     }
 
     private class BulkReserveNetworkInputModel
     {
-        [Required(ErrorMessage = "Network is required")]
-        [RegularExpression("[0-9]{0,3}\\.[0-9]{0,3}\\.[0-9]{0,3}\\.[0-9]{0,3}/[0-9]{0,2}", ErrorMessage = "Network must be in CIDR notation")]
-        public string Network { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Networks are required")]
+        public string Networks { get; set; } = string.Empty;
     }
 }

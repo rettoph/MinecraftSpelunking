@@ -154,7 +154,7 @@ namespace MinecraftSpelunking.Domain.Minecraft.Services
             AddressBlock first = this.entities.First(x => x.Network == networks.First());
             AddressBlock last = this.entities.First(x => x.Network == networks.Last());
 
-            return await this.context.Database.ExecuteSqlAsync($"update dbo.AddressBlocks set Status = {(int)status} where Id between {first.Id} and {last.Id};");
+            return await this.context.Database.ExecuteSqlAsync($"update dbo.AddressBlocks set Status = {(int)status} where Id between {first.Id} and {last.Id} and Status = {(int)AddressBlockStatusEnum.Available};");
         }
     }
 }

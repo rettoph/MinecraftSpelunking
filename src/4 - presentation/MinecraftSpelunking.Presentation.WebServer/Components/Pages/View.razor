@@ -1,0 +1,75 @@
+﻿@using Humanizer
+@using Microsoft.AspNetCore.Authorization
+@using MinecraftSpelunking.Application.Identity.Common.Services
+@using MinecraftSpelunking.Application.Minecraft.Common.Dtos
+@using MinecraftSpelunking.Application.Minecraft.Common.Services
+@using MinecraftSpelunking.Common
+@using MinecraftSpelunking.Domain.Minecraft.Common.Enums
+
+@attribute [Route(Constants.Routes.JavaServers.View + "/{ServerId:int}")]
+@attribute [StreamRendering]
+@rendermode InteractiveServerRenderModeNoPreRender
+
+@inject IJavaServerApplicicationService JavaServers;
+@inject NavigationManager NavigationManager;
+
+<PageTitle>Java Server</PageTitle>
+
+@if (this.Server is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <h1>@Server.Host:@Server.Port</h1>
+
+    <p><strong>ModifiedAt: </strong>@((DateTime.Now - Server.ModifiedAt).Humanize())</p>
+    <p><strong>Status: </strong>@Server.Status</p>
+    <p><strong>Version: </strong>@Server.Version</p>
+    <p><strong>Players: </strong>@Server.PlayersOnline/@Server.PlayersMax</p>
+    <p><strong>Description: </strong>@Server.DescriptionNormalized</p>
+
+    @if (Server.ModPackData is not null)
+    {
+        <p><strong>ModPackData: </strong>@Server.ModPackData.Name</p>
+    }
+
+    if(Server.ModType is not null)
+    {
+        <p><strong>ModType: </strong>@Server.ModType.Name</p>
+    }
+    @if (Server.ModVersions.Any())
+    {
+        <h3>Mods</h3>
+        <ul>
+            @foreach(ModVersionDto modVersion in Server.ModVersions)
+            {
+                <li>@modVersion.Version - @modVersion.Mod.Name</li>
+            }
+        </ul>
+    }
+}
+
+<hr />
+
+@code {
+    [Parameter]
+    public int ServerId { get; set; }
+
+    JavaServerDto? Server;
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.Server = await this.JavaServers.GetJavaServerAsync(this.ServerId);
+    }
+
+    private string GetStatusClass(ServerStatusEnum status)
+    {
+        return status switch
+        {
+            ServerStatusEnum.Online => "text-success",
+            ServerStatusEnum.Offline => "text-danger",
+            _ => "text-dark",
+        };
+    }
+}
